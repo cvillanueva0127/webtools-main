@@ -149,7 +149,15 @@ include("connect.php");
 
         <!-- PHONE -->
         <p><i>Phone Number</i><br>
-          <input type="tel" name="phone" placeholder="e.g. 0981 027 0704" value="<?= $prefill_phone ?>" required>
+         <input 
+  type="tel" 
+  name="phone" 
+  id="phone"
+  maxlength="11"
+  pattern="[0-9]{11}"
+  placeholder="09XXXXXXXXX"
+  oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11)"
+>
         </p>
 
         <!-- OCCASION -->
@@ -307,7 +315,16 @@ include("connect.php");
                   </div>
                   <div class="upload-proof">
                     <label>Upload Payment Screenshot <span class="required">*</span></label>
-                    <input type="file" name="proof" accept="image/*" id="proofUpload">
+                    <input 
+  type="file" 
+  name="proof" 
+  id="proof"
+  accept="image/*"
+  onchange="validateProofSize(this)"
+>
+<p id="proofError" style="color:#e74c3c; font-size:0.8rem; display:none;">
+  File exceeds 100MB limit. Please upload a smaller file.
+</p>
                     <small class="field-hint">Attach a screenshot of your successful GCash transaction</small>
                   </div>
                 </div>
@@ -879,6 +896,15 @@ include("connect.php");
       }
       if (!form.querySelector('input[name="payment"]:checked')) {
         showMsg('⚠️ Please select a payment method.', false); return;
+        // GCash proof size check on submit
+const proofInput = document.getElementById('proof');
+if (proofInput && proofInput.files[0]) {
+  const maxSize = 100 * 1024 * 1024;
+  if (proofInput.files[0].size > maxSize) {
+    showMsg('⚠️ Payment screenshot exceeds 100MB. Please upload a smaller image.', false);
+    return;
+  }
+}
       }
 
       if (guestWarning.style.display !== 'none') {
@@ -954,7 +980,7 @@ include("connect.php");
 
   });
 
-  function cap(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
+ 
   </script>
 
 </body>
