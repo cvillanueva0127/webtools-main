@@ -1445,3 +1445,409 @@ footer {
     font-size: 2.2rem;
   }
 }
+/* =========================================
+   GLOBAL RESPONSIVE FIXES
+========================================= */
+
+img{
+  max-width:100%;
+  height:auto;
+}
+
+body{
+  overflow-x:hidden;
+}
+
+section{
+  width:100%;
+}
+
+/* =========================================
+   LARGE TABLETS
+========================================= */
+@media (max-width:1200px){
+
+  .hero-image img{
+    width:420px;
+  }
+
+  .mainpage-context h2{
+    font-size:4rem;
+  }
+
+  .hero-content h1{
+    font-size:3rem;
+  }
+
+  .gallery-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+/* =========================================
+   TABLETS
+========================================= */
+@media (max-width:992px){
+
+  /* HEADER */
+  .glass-header{
+    width:95%;
+    top:15px;
+  }
+
+  .nav-container{
+    padding:14px 20px;
+  }
+
+  .navbar{
+    position:absolute;
+    top:90px;
+    left:0;
+    width:100%;
+
+    background:rgba(255,255,255,0.96);
+
+    flex-direction:column;
+    align-items:flex-start;
+
+    padding:20px;
+    border-radius:25px;
+
+    display:none;
+  }
+
+  .navbar.show{
+    display:flex;
+  }
+
+  .navbar a{
+    width:100%;
+  }
+
+  .menu-toggle{
+    display:block;
+  }
+
+  /* HERO */
+  .mainpage{
+    min-height:85vh;
+    padding:0 6%;
+  }
+
+  .mainpage-context{
+    max-width:100%;
+  }
+
+  .mainpage-context h2{
+    font-size:3.5rem;
+  }
+
+  .mainpage-context p{
+    font-size:1rem;
+  }
+
+  /* SLIDER */
+  .menu-promo-overlay{
+    width:90%;
+    padding:30px;
+  }
+
+  .menu-promo-overlay h2{
+    font-size:2rem;
+  }
+
+  /* REVIEWS */
+  .review-content{
+    flex-direction:column;
+    text-align:center;
+  }
+
+  .review-image-container{
+    width:100%;
+    height:260px;
+  }
+
+  /* HERO CTA */
+  .hero{
+    flex-direction:column;
+    text-align:center;
+    padding:70px 35px;
+  }
+
+  .hero-content{
+    text-align:center;
+    max-width:100%;
+  }
+
+  .hero-image{
+    position:relative;
+    right:auto;
+    margin-top:40px;
+  }
+
+  .hero-image img{
+    width:100%;
+    max-width:420px;
+  }
+
+  /* FOOTER */
+  .footer-top{
+    flex-direction:column;
+    gap:35px;
+  }
+
+  .footer-bottom{
+    flex-direction:column;
+    gap:15px;
+    text-align:center;
+  }
+
+  footer{
+    padding:45px 35px 30px;
+  }
+}
+
+/* =========================================
+   MOBILE DEVICES
+========================================= */
+@media (max-width:768px){
+
+  /* HEADER */
+  .logo img{
+    width:45px;
+  }
+
+  .logo-text h2{
+    font-size:1.9rem;
+  }
+
+  .logo-text span{
+    font-size:0.6rem;
+    letter-spacing:2px;
+  }
+
+  .login-btn{
+    padding:10px 18px;
+    font-size:0.85rem;
+  }
+
+  /* SOCIALS */
+  .socials{
+    display:none;
+  }
+
+  .contact-box{
+    display:none;
+  }
+
+  /* MAIN HERO */
+  #mainpage{
+    padding-top:110px;
+  }
+
+  .mainpage{
+    min-height:75vh;
+    padding:0 25px;
+  }
+
+  .mainpage-context h2{
+    font-size:2.7rem;
+    line-height:1.15;
+  }
+
+  .mainpage-context p{
+    font-size:0.95rem;
+    line-height:1.7;
+  }
+
+  .book-btn{
+    padding:14px 26px;
+    font-size:0.95rem;
+  }
+
+  /* SECTION */
+  .section{
+    padding:70px 25px;
+  }
+
+  .section-title{
+    font-size:2.1rem;
+  }
+
+  .title-bar{
+    width:100px;
+    height:6px;
+  }
+
+  /* SLIDES */
+  .w3-content{
+    width:94%;
+  }
+
+  .mySlides{
+    border-radius:25px;
+  }
+
+  .menu-promo-overlay{
+    padding:25px 20px;
+  }
+
+  .menu-promo-overlay h2{
+    font-size:1.6rem;
+  }
+
+  .menu-promo-overlay p{
+    font-size:0.9rem;
+  }
+
+  /* CARDS */
+  .page3{
+    grid-template-columns:1fr;
+  }
+
+  .card{
+    border-radius:25px;
+  }
+
+  .card img{
+    height:220px;
+  }
+
+  /* REVIEWS */
+  .review-card{
+    padding:18px;
+  }
+
+  .meal-name{
+    font-size:1.1rem;
+  }
+
+  /* QUICK STATS */
+  .quick-stats{
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+    padding:25px;
+  }
+
+  .quick-box h2{
+    font-size:1.8rem;
+  }
+
+  /* GALLERY */
+  .gallery-grid{
+    grid-template-columns:1fr;
+  }
+
+  .gallery-grid img{
+    height:230px;
+  }
+
+  /* CTA HERO */
+  .hero{
+    width:94%;
+    border-radius:30px;
+    padding:55px 20px;
+  }
+
+  .hero-content h1{
+    font-size:2rem;
+  }
+
+  .hero-content p{
+    font-size:0.95rem;
+  }
+
+  .book{
+    padding:14px 28px;
+  }
+}
+
+/* =========================================
+   SMALL PHONES
+========================================= */
+@media (max-width:480px){
+
+  .glass-header{
+    width:96%;
+    border-radius:18px;
+  }
+
+  .nav-container{
+    padding:12px 15px;
+  }
+
+  .logo{
+    gap:10px;
+  }
+
+  .logo img{
+    width:40px;
+  }
+
+  .logo-text h2{
+    font-size:1.6rem;
+  }
+
+  .mainpage{
+    padding:0 18px;
+  }
+
+  .mainpage-context h2{
+    font-size:2.2rem;
+  }
+
+  .mainpage-context p{
+    font-size:0.88rem;
+  }
+
+  .book-btn{
+    width:100%;
+    justify-content:center;
+  }
+
+  .menu-promo-overlay{
+    width:92%;
+    padding:18px;
+    border-radius:20px;
+  }
+
+  .menu-promo-overlay h2{
+    font-size:1.3rem;
+  }
+
+  .menu-promo-overlay span{
+    font-size:0.7rem;
+  }
+
+  .menu-prompt h2{
+    font-size:1.2rem;
+  }
+
+  .section-title{
+    font-size:1.7rem;
+  }
+
+  .quick-stats{
+    grid-template-columns:1fr;
+  }
+
+  .hero-content h1{
+    font-size:1.6rem;
+  }
+
+  .hero-image img{
+    max-width:280px;
+  }
+
+  footer{
+    padding:35px 20px 25px;
+  }
+
+  .footer-links{
+    gap:8px;
+  }
+
+  .footer-contact{
+    font-size:0.75rem;
+  }
+}

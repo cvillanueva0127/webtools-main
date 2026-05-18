@@ -290,6 +290,22 @@
         const header = document.querySelector("header");
         header.classList.toggle("scrolled", window.scrollY > 50);
       });
+
+        // Header Scroll Effect
+  window.addEventListener("scroll", function () {
+    const header = document.querySelector(".glass-header");
+    if(header){
+      header.classList.toggle("scrolled", window.scrollY > 50);
+    }
+  });
+
+  // Mobile Menu Toggle
+  const menuToggle = document.getElementById("menuToggle");
+  const navbar = document.querySelector(".navbar");
+
+  menuToggle.addEventListener("click", () => {
+    navbar.classList.toggle("show");
+  });
     </script>
   </body>
 </html>
