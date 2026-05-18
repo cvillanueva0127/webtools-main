@@ -47,12 +47,6 @@ body {
   -webkit-backdrop-filter: blur(18px);
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 25px;
-<<<<<<< HEAD
-=======
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.12),
-    inset 0 1px 1px rgba(255, 255, 255, 0.2);
->>>>>>> 3ded351 (final touch)
   transition: 0.4s ease;
 }
 
@@ -68,7 +62,6 @@ body {
   padding: 14px 35px;
 }
 
-<<<<<<< HEAD
 .logo { display: flex; align-items: center; gap: 14px; text-decoration: none; }
 .logo img { width: 55px; height: auto; border-radius: 12px; }
 .logo-text { display: flex; flex-direction: column; justify-content: center; }
@@ -88,113 +81,6 @@ body {
 .socials { position: fixed; left: 20px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 15px; z-index: 1000; }
 .socials img { width: 58px; height: 58px; border-radius: 50%; background: #fff; padding: 10px; }
 .socials img:hover { transform: translateY(-4px); }
-=======
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  text-decoration: none;
-}
-.logo img {
-  width: 55px;
-  height: auto;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
-}
-.logo-text {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.logo-text h2 {
-  color: #283618;
-  font-family: "Caveat", cursive;
-  font-size: 2.4rem;
-  font-weight: 700;
-  line-height: 1.1;
-}
-.logo-text span {
-  font-family: "Poppins", sans-serif;
-  font-size: 0.7rem;
-  letter-spacing: 4px;
-  color: #bc6c25;
-  font-weight: 600;
-  display: block;
-  margin-top: -5px;
-  text-transform: uppercase;
-}
-
-.navbar {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.navbar a {
-  text-decoration: none;
-  color: #283618;
-  font-size: 0.95rem;
-  font-weight: 600;
-  padding: 12px 18px;
-  border-radius: 14px;
-  transition: 0.3s ease;
-}
-.navbar a:hover {
-  background: rgba(255, 255, 255, 0.45);
-  color: #bc6c25;
-  transform: translateY(-2px);
-}
-.navbar a.active {
-  background: linear-gradient(135deg, #606c38, #4f5d2f);
-  color: white;
-  box-shadow: 0 8px 20px rgba(96, 108, 56, 0.35);
-}
-
-.login-btn {
-  text-decoration: none;
-  background: linear-gradient(135deg, #dda15e, #bc6c25);
-  color: white;
-  padding: 12px 24px;
-  border-radius: 14px;
-  font-weight: 700;
-  font-size: 0.95rem;
-  box-shadow: 0 8px 20px rgba(221, 161, 94, 0.35);
-  transition: 0.3s ease;
-}
-.login-btn:hover {
-  transform: translateY(-3px) scale(1.03);
-  box-shadow: 0 12px 25px rgba(221, 161, 94, 0.45);
-}
-.menu-toggle {
-  display: none;
-  font-size: 1.8rem;
-  color: #283618;
-  cursor: pointer;
-}
-
-/* SOCIALS */
-.socials {
-  position: fixed;
-  left: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  z-index: 1000;
-}
-.socials img {
-  width: 58px;
-  height: 58px;
-  border-radius: 50%;
-  background: #fff;
-  padding: 10px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-  transition: 0.3s ease;
-}
-.socials img:hover {
-  transform: translateY(-4px);
-}
->>>>>>> 3ded351 (final touch)
 
 /* ========================================= */
 /* ABOUT HERO SECTION (Matches Store Hero) */
@@ -217,13 +103,8 @@ body {
     url("../IMAGES/Slide1.png");
   background-size: cover;
   background-position: center;
-<<<<<<< HEAD
   
 
-=======
-
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.18);
->>>>>>> 3ded351 (final touch)
 }
 
 .about-hero-content {
@@ -237,11 +118,6 @@ body {
   font-size: 5.5rem;
   color: white;
   margin-bottom: 25px;
-<<<<<<< HEAD
-
-=======
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
->>>>>>> 3ded351 (final touch)
 }
 
 .hero-desc-box {
@@ -250,13 +126,8 @@ body {
   padding: 35px 45px;
   border-radius: 30px;
   border: 1px solid rgba(255, 255, 255, 0.4);
-<<<<<<< HEAD
 
   
-=======
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-
->>>>>>> 3ded351 (final touch)
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 30px;
@@ -318,11 +189,6 @@ body {
   height: 400px;
   object-fit: cover;
   border-radius: 30px;
-<<<<<<< HEAD
-
-=======
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
->>>>>>> 3ded351 (final touch)
 }
 
 /* ========================================= */
@@ -351,10 +217,6 @@ body {
 .organic-image {
   width: 100%;
   border-radius: 30px;
-<<<<<<< HEAD
-=======
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
->>>>>>> 3ded351 (final touch)
   border: 4px solid white;
 }
 
@@ -545,102 +407,11 @@ footer {
 }
 
 @media (max-width: 900px) {
-<<<<<<< HEAD
-=======
-  .navbar { position: absolute; top: 90px; left: 0; width: 100%; flex-direction: column; align-items: flex-start; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); padding: 20px; border-radius: 25px; display: none; }
-  .navbar.show { display: flex; }
-  .navbar a { width: 100%; }
-  .login-btn { display: none; }
-  .menu-toggle { display: block; }
-  .socials { display: none; }
-  .heritage-heading { font-size: 3.5rem; }
-  footer { padding: 40px 30px 24px; }
-  .footer-top { flex-direction: column; gap: 30px; }
-  .footer-bottom { flex-direction: column; gap: 14px; text-align: center; }
-}
-
-/* ========================================= */
-/* EXTRA RESPONSIVE FIXES */
-/* ========================================= */
-
-/* LARGE TABLETS */
-@media (max-width: 1024px) {
-
-  .about-hero {
-    min-height: auto;
-    padding: 120px 6% 80px;
-  }
-
-  .heritage-heading {
-    font-size: 4rem;
-    text-align: center;
-  }
-
-  .hero-desc-box {
-    grid-template-columns: 1fr;
-    padding: 30px;
-    gap: 20px;
-  }
-
-  .white-quote-box {
-    grid-template-columns: 1fr;
-    padding: 40px;
-    text-align: center;
-  }
-
-  .director-quote {
-    font-size: 2.2rem;
-  }
-
-  .team-editorial-grid {
-    grid-template-columns: 1fr;
-    gap: 80px;
-  }
-
-  .team-grid-visuals {
-    height: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .team-img-frame {
-    position: relative;
-    width: 100% !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-  }
-
-  .heritage-heading-story {
-    text-align: center;
-    font-size: 3rem;
-  }
-
-  .text-container-box {
-    padding: 30px;
-  }
-}
-
-/* TABLETS */
-@media (max-width: 768px) {
-
-  .glass-header {
-    width: 95%;
-    top: 10px;
-  }
-
-  .nav-container {
-    padding: 14px 20px;
-  }
-
->>>>>>> 9e1069e (new)
   .navbar {
     position: absolute;
     top: 90px;
     left: 0;
     width: 100%;
-<<<<<<< HEAD
     flex-direction: column;
     align-items: flex-start;
     background: rgba(255, 255, 255, 0.95);
@@ -670,226 +441,13 @@ footer {
   footer {
     padding: 40px 30px 24px;
   }
-=======
-
-    display: none;
-    flex-direction: column;
-    align-items: flex-start;
-
-    background: rgba(255,255,255,0.95);
-    backdrop-filter: blur(20px);
-
-    padding: 20px;
-    border-radius: 25px;
-  }
-
-  .navbar.show {
-    display: flex;
-  }
-
-  .navbar a {
-    width: 100%;
-  }
-
-  .menu-toggle {
-    display: block;
-  }
-
-.login-btn {
-  display: inline-block;
-}
-
-  .socials {
-    display: none;
-  }
-
-  .logo-text h2 {
-    font-size: 2rem;
-  }
-
-  .heritage-heading {
-    font-size: 3rem;
-    line-height: 1.1;
-  }
-
-  .hero-desc-box {
-    padding: 25px;
-  }
-
-  .hero-desc-box p {
-    font-size: 0.95rem;
-  }
-
-  .quote-block-container {
-    margin: 70px auto;
-  }
-
-  .white-quote-box {
-    padding: 30px;
-    gap: 30px;
-  }
-
-  .director-quote {
-    font-size: 1.8rem;
-  }
-
-  .big-quote {
-    font-size: 4rem;
-  }
-
-  .side-img-large img {
-    height: 300px;
-  }
-
-  .heritage-heading-story {
-    font-size: 2.5rem;
-  }
-
-  .body-text-bold {
-    font-size: 0.95rem;
-  }
-
-  footer {
-    padding: 40px 25px 24px;
-  }
-
->>>>>>> 9e1069e (new)
   .footer-top {
     flex-direction: column;
     gap: 30px;
   }
-<<<<<<< HEAD
   .footer-bottom {
     flex-direction: column;
     gap: 14px;
     text-align: center;
   }
 }
-=======
-
-  .footer-bottom {
-    flex-direction: column;
-    gap: 15px;
-    text-align: center;
-  }
-}
-
-/* MOBILE PHONES */
-@media (max-width: 480px) {
-
-  .glass-header {
-    border-radius: 18px;
-  }
-
-  .nav-container {
-    padding: 12px 16px;
-  }
-
-  .logo img {
-    width: 45px;
-  }
-
-  .logo-text h2 {
-    font-size: 1.7rem;
-  }
-
-  .logo-text span {
-    font-size: 0.55rem;
-    letter-spacing: 2px;
-  }
-
-  .menu-toggle {
-    font-size: 1.5rem;
-  }
-
-  .about-hero {
-    width: 95%;
-    margin-top: 100px;
-    border-radius: 25px;
-    padding: 100px 5% 60px;
-  }
-
-  .heritage-heading {
-    font-size: 2.3rem;
-    text-align: center;
-  }
-
-  .hero-desc-box {
-    padding: 20px;
-    border-radius: 20px;
-  }
-
-  .hero-desc-box p {
-    font-size: 0.9rem;
-    line-height: 1.7;
-    text-align: center;
-  }
-
-  .quote-block-container {
-    width: 95%;
-  }
-
-  .white-quote-box {
-    padding: 25px;
-    border-radius: 25px;
-  }
-
-  .director-quote {
-    font-size: 1.5rem;
-    line-height: 1.5;
-  }
-
-  .big-quote {
-    font-size: 3rem;
-  }
-
-  .side-img-large img {
-    height: 240px;
-    border-radius: 20px;
-  }
-
-  .team-editorial-grid {
-    width: 95%;
-    margin: 80px auto;
-  }
-
-  .heritage-heading-story {
-    font-size: 2rem;
-  }
-
-  .text-container-box {
-    padding: 20px;
-    border-radius: 20px;
-  }
-
-  .body-text-bold {
-    font-size: 0.9rem;
-    line-height: 1.7;
-  }
-
-  .organic-image {
-    border-radius: 20px;
-  }
-
-  footer {
-    padding: 35px 20px 20px;
-  }
-
-  .footer-brand img {
-    width: 80px;
-  }
-
-  .footer-tagline {
-    font-size: 0.75rem;
-  }
-
-  .footer-links a,
-  .footer-contact {
-    font-size: 0.8rem;
-  }
-
-  .footer-bottom {
-    font-size: 0.7rem;
-  }
-}
->>>>>>> 9e1069e (new)

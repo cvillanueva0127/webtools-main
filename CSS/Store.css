@@ -6,15 +6,8 @@
   font-family: "Poppins", sans-serif;
 }
 
-<<<<<<< HEAD
 body {
   font-family: "Poppins", sans-serif;
-=======
-
-body{
-  font-family:"Poppins",sans-serif;
-  
->>>>>>> 9e1069e (new)
 
   background:
     linear-gradient(rgba(248, 246, 242, 0.94), rgba(248, 246, 242, 0.94)),
@@ -27,15 +20,6 @@ body{
   overflow-x: hidden;
 }
 
-<<<<<<< HEAD
-=======
-
-html,
-body{
-  overflow-x:hidden;
-  width:100%;
-}
->>>>>>> 9e1069e (new)
 /* HEADER */
 /* ============================= */
 /* GLASS HEADER */
@@ -52,12 +36,6 @@ body{
   -webkit-backdrop-filter: blur(18px);
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 25px;
-<<<<<<< HEAD
-=======
-  box-shadow:
-    0 8px 32px rgba(0, 0, 0, 0.12),
-    inset 0 1px 1px rgba(255, 255, 255, 0.2);
->>>>>>> 3ded351 (final touch)
   transition: 0.4s ease;
 }
 
@@ -283,10 +261,6 @@ body{
 
   border: 1px solid rgba(255, 255, 255, 0.4);
 
-<<<<<<< HEAD
-=======
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
->>>>>>> 3ded351 (final touch)
 
   transition: 0.35s ease;
 }
@@ -346,13 +320,7 @@ body{
 
   padding: 30px;
 
-<<<<<<< HEAD
   border:1px solid rgba(255,255,255,0.4);
-=======
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
-
-  border: 1px solid rgba(255, 255, 255, 0.4);
->>>>>>> 3ded351 (final touch)
 }
 
 .info-panel h2 {
@@ -410,7 +378,6 @@ iframe {
   border: none;
 }
 
-<<<<<<< HEAD
 /* =========================
    FOOTER  (matches menu.html style)
 ========================= */
@@ -420,27 +387,6 @@ footer {
   color: rgba(255, 255, 255, 0.55);
   margin-top: 0;
   border-top: none;
-=======
-/* FOOTER */
-/* ========================================= */
-/* FOOTER */
-/* ========================================= */
-/* ========================================= */
-/* FOOTER */
-/* ========================================= */
-
-footer{
-  width:100%;
-  background:#11110d;
-
-  padding:56px 80px 36px;
-
-  color:rgba(255,255,255,0.55);
-
-  margin-top:80px;
-
-  overflow:hidden;
->>>>>>> 9e1069e (new)
 }
 
 .footer-top{
@@ -546,7 +492,6 @@ footer{
   gap:14px;
 }
 
-<<<<<<< HEAD
 .footer-socials a {
   display: flex;
   align-items: center;
@@ -571,7 +516,7 @@ footer{
 }
 
 .footer-socials img {
-<<<<<<< HEAD
+
   width: 16px;
   height: 16px;
   border-radius: 0;
@@ -579,15 +524,7 @@ footer{
   background: transparent;
   backdrop-filter: none;
   filter: brightness(0) invert(1) opacity(0.7);
-=======
-  width: 22px;
-  height: 22px;
 }
-
-.footer-socials img:hover {
-  transform: none;
->>>>>>> 3ded351 (final touch)
-=======
 .footer-socials a{
   width:40px;
   height:40px;
@@ -614,7 +551,6 @@ footer{
   height:16px;
 
   filter:brightness(0) invert(1) opacity(0.7);
->>>>>>> 9e1069e (new)
 }
 
 
@@ -727,10 +663,6 @@ footer{
   background-size: cover;
   background-position: center;
 
-<<<<<<< HEAD
-=======
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.18);
->>>>>>> 3ded351 (final touch)
 }
 
 .store-hero-content {
@@ -856,10 +788,6 @@ footer{
 
   border-radius: 24px;
 
-<<<<<<< HEAD
-=======
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
->>>>>>> 3ded351 (final touch)
 
   animation: floatCard 4s ease-in-out infinite;
 }
@@ -911,11 +839,6 @@ footer{
   width: 100%;
   border-radius: 40px;
 
-<<<<<<< HEAD
-
-=======
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.12);
->>>>>>> 3ded351 (final touch)
 }
 
 .mini-tag {
@@ -963,13 +886,7 @@ footer{
 
   border-radius: 24px;
 
-<<<<<<< HEAD
   transition:0.3s ease;
-=======
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
-
-  transition: 0.3s ease;
->>>>>>> 3ded351 (final touch)
 }
 
 .feature-box:hover {
@@ -1000,266 +917,4 @@ footer{
   .hero-buttons {
     flex-direction: column;
   }
-<<<<<<< HEAD
 }
-=======
-
-  .floating-store-card{
-    display:none;
-  }
-
-  .hero-buttons{
-    flex-direction:column;
-  }
-}
-
-/* ========================================= */
-/* RESPONSIVE FIXES */
-/* ========================================= */
-
-/* TABLETS */
-@media (max-width: 1024px){
-
-  .store-container{
-    grid-template-columns:1fr;
-  }
-
-  .info-panel{
-    position:relative;
-    top:auto;
-  }
-
-  .store-hero{
-    min-height:75vh;
-    padding:0 6%;
-  }
-
-  .store-hero h1{
-    font-size:4rem;
-  }
-
-  .why-section{
-    grid-template-columns:1fr;
-    gap:40px;
-  }
-
-  .why-right h2{
-    font-size:2.5rem;
-  }
-
-  .floating-store-card{
-    display:none;
-  }
-}
-
-
-/* MOBILE */
-@media (max-width: 900px){
-
-  /* HEADER */
-  .nav-container{
-    padding:14px 20px;
-  }
-
-  .navbar{
-    position:absolute;
-    top:90px;
-    left:0;
-    width:100%;
-
-    display:none;
-    flex-direction:column;
-    align-items:flex-start;
-
-    padding:20px;
-
-    background:rgba(255,255,255,0.96);
-
-    backdrop-filter:blur(20px);
-
-    border-radius:25px;
-  }
-
-  .navbar.show{
-    display:flex;
-  }
-
-  .navbar a{
-    width:100%;
-  }
-
-  .menu-toggle{
-    display:block;
-  }
-
-  .login-btn{
-    display:inline-block;
-
-    padding:10px 18px;
-    font-size:0.85rem;
-  }
-
-  .socials{
-    display:none;
-  }
-
-
-  /* HERO */
-  .store-hero{
-    width:94%;
-    min-height:auto;
-
-    padding:120px 25px 80px;
-
-    margin:120px auto 40px;
-  }
-
-  .store-hero-content{
-    max-width:100%;
-  }
-
-  .store-hero h1{
-    font-size:2.7rem;
-    line-height:1.15;
-  }
-
-  .store-hero p{
-    font-size:0.95rem;
-    line-height:1.7;
-  }
-
-  .hero-buttons{
-    flex-direction:column;
-    width:100%;
-  }
-
-  .hero-btn{
-    width:100%;
-    text-align:center;
-  }
-
-  .hero-stats{
-    gap:12px;
-  }
-
-  .hero-stat{
-    width:100%;
-  }
-
-
-  /* STORE SECTION */
-  .title-container{
-    margin:60px auto 25px;
-  }
-
-  .section-title{
-    font-size:2rem;
-  }
-
-  .store-container{
-    width:94%;
-    grid-template-columns:1fr;
-    gap:25px;
-  }
-
-  .store-grid{
-    grid-template-columns:1fr;
-  }
-
-  .card img{
-    height:220px;
-  }
-
-  .card h3{
-    font-size:1.2rem;
-  }
-
-  .card p{
-    font-size:0.92rem;
-  }
-
-  .info-panel{
-    position:relative;
-    top:auto;
-    padding:24px;
-  }
-
-
-  /* WHY SECTION */
-  .why-section{
-    width:94%;
-    margin:80px auto;
-
-    grid-template-columns:1fr;
-    gap:35px;
-  }
-
-  .why-right h2{
-    font-size:2rem;
-    line-height:1.2;
-  }
-
-  .feature-box{
-    padding:18px;
-  }
-
-
-  /* FOOTER */
-  footer{
-    padding:40px 25px 24px;
-  }
-
-  .footer-top{
-    flex-direction:column;
-    gap:30px;
-  }
-
-  .footer-bottom{
-    flex-direction:column;
-    gap:14px;
-    text-align:center;
-  }
-}
-
-
-/* SMALL PHONES */
-@media (max-width: 480px){
-
-  .logo-text h2{
-    font-size:1.9rem;
-  }
-
-  .logo-text span{
-    font-size:0.55rem;
-    letter-spacing:3px;
-  }
-
-  .store-hero h1{
-    font-size:2.2rem;
-  }
-
-  .section-title{
-    font-size:1.7rem;
-  }
-
-  .why-right h2{
-    font-size:1.7rem;
-  }
-
-  .hero-btn{
-    padding:14px 20px;
-  }
-
-  .card{
-    border-radius:26px;
-  }
-
-  .card img{
-    height:200px;
-  }
-
-  .info-panel{
-    border-radius:28px;
-  }
-}
->>>>>>> 9e1069e (new)
