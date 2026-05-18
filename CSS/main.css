@@ -609,10 +609,10 @@ body::before {
 .menu-prompt {
   display: flex;
   flex-direction: column; /* Forces the button to sit directly below the text */
-  align-items: center;    /* Centers everything horizontally */
+  align-items: center; /* Centers everything horizontally */
   justify-content: center;
-  text-align: center;     /* Keeps the text itself centered */
-  gap: 20px;              /* Vertical space between the text and button */
+  text-align: center; /* Keeps the text itself centered */
+  gap: 20px; /* Vertical space between the text and button */
   margin-top: 50px;
 }
 
@@ -620,7 +620,7 @@ body::before {
   font-size: 1.8rem;
   color: #283618;
   font-weight: 700;
-  margin: 0; 
+  margin: 0;
 }
 /* menu button */
 .menu-btn {
@@ -976,6 +976,7 @@ footer {
 }
 
 .footer-socials img {
+<<<<<<< HEAD
   width: 16px;
   height: 16px;
   /* override the circular socials img rule */
@@ -986,6 +987,10 @@ footer {
 
   filter: brightness(0) invert(1) opacity(0.7);
   transition: none;
+=======
+  width: 22px;
+  height: 22px;
+>>>>>>> 3ded351 (final touch)
 }
 
 .footer-socials img:hover {
@@ -1267,7 +1272,7 @@ footer {
 .gallery-grid {
   display: grid;
   /* Forces exactly 3 equal columns so your 6 images create a perfect 3x2 rectangle */
-  grid-template-columns: repeat(3, 1fr); 
+  grid-template-columns: repeat(3, 1fr);
   gap: 25px;
 }
 
@@ -1301,8 +1306,6 @@ footer {
   font-size: 1.5rem;
 }
 
-
-
 /* =========================
    RESPONSIVE
 ========================= */
@@ -1312,7 +1315,10 @@ footer {
   }
 
   .gallery-grid {
-    grid-template-columns: repeat(2, 1fr); /* Switches to 2 columns on tablets */
+    grid-template-columns: repeat(
+      2,
+      1fr
+    ); /* Switches to 2 columns on tablets */
   }
 
   .hero-content h1 {
@@ -1378,7 +1384,7 @@ footer {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .menu-prompt h2 {
     font-size: 1.5rem;
     line-height: 1.4;

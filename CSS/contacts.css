@@ -51,7 +51,13 @@ body {
   -webkit-backdrop-filter: blur(18px);
   border: 1px solid rgba(255, 255, 255, 0.25);
   border-radius: 25px;
+<<<<<<< HEAD
 
+=======
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.12),
+    inset 0 1px 1px rgba(255, 255, 255, 0.2);
+>>>>>>> 3ded351 (final touch)
   transition: 0.4s ease;
 }
 
@@ -84,7 +90,7 @@ body {
 /* Updated Logo Text */
 .logo-text {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   justify-content: center;
 }
 
@@ -103,7 +109,7 @@ body {
   color: #bc6c25;
   font-weight: 600;
   display: block;
-  margin-top: -5px; 
+  margin-top: -5px;
   text-transform: uppercase;
 }
 
@@ -196,14 +202,14 @@ body {
 /* ========================================= */
 
 .hero {
-  width: 100%; 
+  width: 100%;
   /* REDUCED HEIGHT: This stops the browser from zooming the image in massively */
-  min-height: 50vh; 
-  
-  margin: 120px 0 60px 0; 
-  border-radius: 0; 
-  padding: 0 7%; 
-  
+  min-height: 50vh;
+
+  margin: 120px 0 60px 0;
+  border-radius: 0;
+  padding: 0 7%;
+
   position: relative;
   overflow: hidden;
   display: flex;
@@ -214,22 +220,22 @@ body {
     linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
     url("../IMAGES/findus.jpg");
   background-size: cover;
-  
+
   /* ADJUSTED POSITION: Keeps the most important part of the image in view */
-  background-position: center center; 
+  background-position: center center;
 
 }
 
 .hero-content {
   max-width: 700px;
   z-index: 2;
-  text-align: center; 
-  display: flex; 
-  flex-direction: column; 
-  align-items: center; 
-  
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
   /* NEW: Adds a beautiful dark glass box behind the text */
-  background: rgba(0, 0, 0, 0.35); 
+  background: rgba(0, 0, 0, 0.35);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   padding: 50px 60px;
@@ -258,11 +264,17 @@ body {
 
 .hero h1 {
   /* Reduced from 5rem to 4rem so it fits the box perfectly */
-  font-size: 4rem; 
+  font-size: 4rem;
   line-height: 1.05;
   color: white;
   margin-bottom: 18px;
   font-weight: 800;
+<<<<<<< HEAD
+=======
+
+  /* NEW: Adds a soft shadow to the text to make it pop */
+  text-shadow: 2px 4px 10px rgba(0, 0, 0, 0.5);
+>>>>>>> 3ded351 (final touch)
 }
 
 .hero h1 span {
@@ -320,7 +332,7 @@ body {
 .contact-section {
   width: 90%;
   /* Increased from 1150px to 1250px to allow the box to expand further right */
-  max-width: 1250px; 
+  max-width: 1250px;
   margin: 80px auto 120px;
 }
 
@@ -345,9 +357,9 @@ body {
 .contact-layout {
   display: grid;
   /* Changed from 1fr 1fr to 1fr 1.2fr to make the form column naturally wider */
-  grid-template-columns: 1fr 1.2fr; 
+  grid-template-columns: 1fr 1.2fr;
   gap: 60px;
-  align-items: flex-start; 
+  align-items: flex-start;
 }
 
 /* ========================================= */
@@ -393,11 +405,16 @@ body {
   display: flex;
   gap: 18px;
   align-items: center;
-  
+
   background: white;
   padding: 20px 24px;
   border-radius: 24px;
+<<<<<<< HEAD
   
+=======
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+>>>>>>> 3ded351 (final touch)
   transition: 0.3s ease;
 }
 
@@ -409,14 +426,14 @@ body {
   width: 55px;
   height: 55px;
   border-radius: 50%;
-  
+
   background: linear-gradient(135deg, #283618, #606c38);
   color: white;
-  
+
   display: flex;
   align-items: center;
   justify-content: center;
-  
+
   font-size: 1.2rem;
   flex-shrink: 0;
 }
@@ -548,7 +565,8 @@ body {
   border-bottom: 2px solid #bc6c25 !important;
 }
 
-input, textarea {
+input,
+textarea {
   padding: 16px 20px;
   border: 1px solid #e5e7eb;
   border-radius: 18px;
@@ -558,7 +576,8 @@ input, textarea {
   transition: 0.3s ease;
 }
 
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
   outline: none;
   border-color: #bc6c25;
   background: white;
@@ -574,7 +593,8 @@ textarea {
   margin-top: 15px;
 }
 
-.submit-btn, .reset-btn {
+.submit-btn,
+.reset-btn {
   padding: 14px 28px;
   border-radius: 40px;
   font-size: 1rem;
@@ -614,11 +634,12 @@ textarea {
     gap: 50px;
   }
 
-  .split-inputs, .radio-options {
+  .split-inputs,
+  .radio-options {
     flex-direction: column;
     gap: 10px;
   }
-  
+
   .form-card {
     padding: 35px;
   }
@@ -628,7 +649,7 @@ textarea {
   .section-title {
     font-size: 2.2rem;
   }
-  
+
   .contact-info-side h2 {
     font-size: 2.5rem;
   }
@@ -636,17 +657,18 @@ textarea {
   .form-actions {
     flex-direction: column;
   }
-  
-  .submit-btn, .reset-btn {
+
+  .submit-btn,
+  .reset-btn {
     width: 100%;
   }
 }
 
-/* ========================================= */
-/* FOOTER */
-/* ========================================= */
+/* =========================
+   FOOTER  (matches menu.html style)
+========================= */
 footer {
-  background: #1a1a14;
+  background: #0b2408;
   padding: 56px 80px 36px;
   color: rgba(255, 255, 255, 0.55);
   margin-top: 0;
@@ -734,6 +756,7 @@ footer {
   transition:
     border-color 0.2s,
     background 0.2s;
+  /* override any inherited background from .socials img */
   background: transparent;
   backdrop-filter: none;
   padding: 0;
@@ -742,9 +765,11 @@ footer {
 .footer-socials a:hover {
   border-color: #dda15e;
   background: rgba(221, 161, 94, 0.1);
+  transform: none;
 }
 
 .footer-socials img {
+<<<<<<< HEAD
   width: 16px;
   height: 16px;
   border-radius: 0;
@@ -752,24 +777,14 @@ footer {
   background: transparent;
   backdrop-filter: none;
   filter: brightness(0) invert(1) opacity(0.7);
+=======
+  width: 22px;
+  height: 22px;
+>>>>>>> 3ded351 (final touch)
 }
 
-/* Responsive fixes for the footer */
-@media (max-width: 900px) {
-  footer {
-    padding: 40px 30px 24px;
-  }
-
-  .footer-top {
-    flex-direction: column;
-    gap: 30px;
-  }
-
-  .footer-bottom {
-    flex-direction: column;
-    gap: 14px;
-    text-align: center;
-  }
+.footer-socials img:hover {
+  transform: none;
 }
 
 /* ========================================= */
