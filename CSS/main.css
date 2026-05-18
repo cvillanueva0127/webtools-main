@@ -976,7 +976,6 @@ footer {
 }
 
 .footer-socials img {
-<<<<<<< HEAD
   width: 16px;
   height: 16px;
   /* override the circular socials img rule */
@@ -987,10 +986,6 @@ footer {
 
   filter: brightness(0) invert(1) opacity(0.7);
   transition: none;
-=======
-  width: 22px;
-  height: 22px;
->>>>>>> 3ded351 (final touch)
 }
 
 .footer-socials img:hover {
