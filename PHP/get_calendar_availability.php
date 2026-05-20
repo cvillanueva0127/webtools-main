@@ -1,5 +1,4 @@
 <?php
-// ── Suppress warnings/notices so they never corrupt JSON output ───────────────
 error_reporting(0);
 ini_set('display_errors', 0);
 
@@ -8,7 +7,6 @@ include("connect.php");
 
 header('Content-Type: application/json');
 
-// ── Input ─────────────────────────────────────────────────────────────────────
 $year  = isset($_GET['year'])  ? (int)$_GET['year']  : (int)date('Y');
 $month = isset($_GET['month']) ? (int)$_GET['month'] : (int)date('m');
 
@@ -17,8 +15,8 @@ if ($year < 2020 || $year > 2100 || $month < 1 || $month > 12) {
     exit;
 }
 
-// ── Read daily capacity from settings ────────────────────────────────────────
-$DAILY_LIMIT = 100; // safe default
+// ── Shared daily capacity (one pool for all 3 slots) ─────────────────────────
+$DAILY_LIMIT = 50;
 try {
     $limitStmt = $pdo->query("SELECT setting_value FROM settings WHERE setting_key = 'daily_capacity' LIMIT 1");
     if ($limitStmt) {
@@ -28,11 +26,9 @@ try {
         }
     }
 } catch (Throwable $e) {
-    // settings table may not exist yet — use default 100
-    $DAILY_LIMIT = 100;
+    $DAILY_LIMIT = 50;
 }
 
-// Slot names and their times — must match booking_submit.php $slotMap
 $slotTimes = [
     'morning'   => '08:00:00',
     'afternoon' => '14:00:00',
@@ -64,12 +60,11 @@ try {
     exit;
 }
 
-// ── Build lookup: $booked['2026-05-28']['morning'] = 40 ───────────────────────
+// ── Build per-slot lookup ─────────────────────────────────────────────────────
 $booked = [];
 foreach ($rows as $row) {
-    $t       = $row['btime'];
-    // Normalise "8:00:00" → "08:00:00" (MySQL version differences)
-    $tPadded = (strlen($t) === 7) ? '0' . $t : $t;
+    $t        = $row['btime'];
+    $tPadded  = (strlen($t) === 7) ? '0' . $t : $t;
     $slotName = $timeToSlot[$tPadded] ?? null;
     if ($slotName !== null) {
         $booked[$row['bdate']][$slotName] = (int)$row['booked_guests'];
@@ -89,28 +84,23 @@ for ($d = 1; $d <= $daysInMonth; $d++) {
         continue;
     }
 
-    // Total guests already booked that day (all slots combined)
+    // Sum ALL guests across ALL slots — single shared pool
     $totalBookedDay = 0;
     foreach ($slotNames as $slot) {
         $totalBookedDay += $booked[$dateStr][$slot] ?? 0;
     }
 
-    // How many slots are individually at capacity
-    $fullSlots = 0;
-    foreach ($slotNames as $slot) {
-        if (($booked[$dateStr][$slot] ?? 0) >= $DAILY_LIMIT) {
-            $fullSlots++;
-        }
-    }
-
     $remaining = max(0, $DAILY_LIMIT - $totalBookedDay);
 
-    if ($remaining === 0) {
-        $availability[$dateStr] = ['status' => 'full', 'remaining' => 0];
-    } elseif ($fullSlots > 0 || $totalBookedDay > 0) {
+    // Red  = shared pool of 50 is fully used up
+    // Orange = some guests booked but pool not empty yet
+    // Green  = nobody booked yet
+    if ($totalBookedDay >= $DAILY_LIMIT) {
+        $availability[$dateStr] = ['status' => 'full',    'remaining' => 0];
+    } elseif ($totalBookedDay > 0) {
         $availability[$dateStr] = ['status' => 'partial', 'remaining' => $remaining];
     } else {
-        $availability[$dateStr] = ['status' => 'open', 'remaining' => $remaining];
+        $availability[$dateStr] = ['status' => 'open',    'remaining' => $remaining];
     }
 }
 

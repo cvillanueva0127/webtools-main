@@ -1,8 +1,12 @@
 <?php
 /**
- * check_slot.php  (fixed)
+ * check_slot.php
  *
- * MODE A — calendar (called by homepage.php):
+ * Shared daily pool — all 3 slots (morning/afternoon/evening) draw from
+ * the same capacity (default 50). Booking 25 guests in morning leaves
+ * only 25 for the rest of the day across afternoon and evening combined.
+ *
+ * MODE A — calendar slot check:
  *   GET ?date=2026-05-28&slot=morning
  *   Returns: { available, remaining, booked, capacity }
  *
@@ -11,12 +15,11 @@
  *   Returns: { available, message }
  */
 
-// ── Suppress warnings/notices so they never corrupt JSON output ───────────────
 error_reporting(0);
 ini_set('display_errors', 0);
 
 header('Content-Type: application/json');
-include("connect.php");   // provides $pdo
+include("connect.php");
 
 define('BUFFER_HOURS', 2);
 
@@ -26,8 +29,8 @@ $slotTimes = [
     'evening'   => '19:00:00',
 ];
 
-// ── Read daily capacity from settings ────────────────────────────────────────
-$DAILY_LIMIT = 100;
+// ── Shared daily capacity ─────────────────────────────────────────────────────
+$DAILY_LIMIT = 50;
 try {
     $limitStmt = $pdo->query("SELECT setting_value FROM settings WHERE setting_key = 'daily_capacity' LIMIT 1");
     if ($limitStmt) {
@@ -37,14 +40,14 @@ try {
         }
     }
 } catch (Throwable $e) {
-    $DAILY_LIMIT = 100;
+    $DAILY_LIMIT = 50;
 }
 
 $hasDateSlot = isset($_GET['date'], $_GET['slot']);
 $hasDatetime = !$hasDateSlot && isset($_GET['datetime']) && trim($_GET['datetime']) !== '';
 
 // ══════════════════════════════════════════════════════════════════════════════
-// MODE A — date + slot  (used by the availability calendar)
+// MODE A — date + slot
 // ══════════════════════════════════════════════════════════════════════════════
 if ($hasDateSlot) {
 
@@ -65,7 +68,7 @@ if ($hasDateSlot) {
     }
 
     try {
-        // 1. Guests already booked this specific slot
+        // Guests booked in THIS specific slot
         $slotTime = $slotTimes[$slot];
         $slotStmt = $pdo->prepare("
             SELECT COALESCE(SUM(guests), 0) AS booked_slot
@@ -77,7 +80,7 @@ if ($hasDateSlot) {
         $slotStmt->execute([$date, $slotTime]);
         $bookedSlot = (int)$slotStmt->fetchColumn();
 
-        // 2. Total guests across ALL slots that day (for daily cap check)
+        // Total guests across ALL slots that day (shared pool)
         $dayStmt = $pdo->prepare("
             SELECT COALESCE(SUM(guests), 0) AS booked_day
             FROM bookings
@@ -92,14 +95,16 @@ if ($hasDateSlot) {
         exit;
     }
 
+    // Remaining = what's left in the shared daily pool
     $remaining = max(0, $DAILY_LIMIT - $bookedDay);
-    // Slot is available if day has remaining capacity AND this specific slot has no bookings yet
-    $available = ($remaining > 0 && $bookedSlot === 0);
+
+    // Slot is available if the shared daily pool still has room
+    $available = ($remaining > 0);
 
     echo json_encode([
         'available' => $available,
-        'remaining' => $remaining,
-        'booked'    => $bookedSlot,
+        'remaining' => $remaining,   // shown on slot card: "X guest slots left"
+        'booked'    => $bookedSlot,  // guests in this specific slot
         'capacity'  => $DAILY_LIMIT,
     ]);
     exit;
@@ -150,5 +155,4 @@ if ($hasDatetime) {
     exit;
 }
 
-// ── Neither mode matched ──────────────────────────────────────────────────────
 echo json_encode(['available' => false, 'message' => 'No valid parameters provided.']);

@@ -465,15 +465,15 @@ include("connect.php");
   <!-- ================= JS ================= -->
   <script>
 
-  // ── FIX 1: cap() helper — capitalises first letter (was missing, broke everything) ──
+  // ── cap() helper — capitalises first letter ───────────────────────────────
   function cap(str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
-  // ── FIX 2: validateProofSize() — was called in HTML but never defined ──
+  // ── validateProofSize() ───────────────────────────────────────────────────
   function validateProofSize(input) {
-    const maxSize  = 100 * 1024 * 1024; // 100 MB
-    const errEl    = document.getElementById('proofError');
+    const maxSize = 100 * 1024 * 1024; // 100 MB
+    const errEl   = document.getElementById('proofError');
     if (input.files[0] && input.files[0].size > maxSize) {
       errEl.style.display = 'block';
       input.value = '';
@@ -589,6 +589,7 @@ include("connect.php");
           cell.title += ' · ' + info.remaining + ' guest slots remaining';
         }
 
+        // ── FIX: full days are NOT clickable ─────────────────────────────────
         if (info.status === 'open' || info.status === 'partial') {
           cell.addEventListener('click', () => selectDate(dateStr, cell));
         }
@@ -787,8 +788,6 @@ include("connect.php");
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
 
-      // ── FIX 3: All validation checks in correct order, no dead code ──
-
       if (!dateInput.value) {
         showMsg('⚠️ Please select a date from the calendar.', false); return;
       }
@@ -801,7 +800,6 @@ include("connect.php");
         showMsg('⚠️ Please select a payment method.', false); return;
       }
 
-      // GCash proof size check (was after a return — now fixed)
       const proofInput = document.getElementById('proof');
       if (proofInput && proofInput.files[0]) {
         const maxSize = 100 * 1024 * 1024;
@@ -868,13 +866,13 @@ include("connect.php");
       }
     });
 
-    // ── SCROLL EFFECT ──────────────────────────────────────────────────────────
+    // ── SCROLL EFFECT ─────────────────────────────────────────────────────────
     window.addEventListener('scroll', function () {
       const header = document.querySelector('.glass-header');
       if (header) header.classList.toggle('scrolled', window.scrollY > 50);
     });
 
-    // ── INIT ───────────────────────────────────────────────────────────────────
+    // ── INIT ──────────────────────────────────────────────────────────────────
     loadCalendar(calYear, calMonth);
 
   });
