@@ -23,9 +23,10 @@ include("connect.php");
           <span>FOOD HUB</span>
         </div>
       </a>
-      <!-- ✅ Back to Main button added here -->
-      <a href="../HTML/main.php" class="login-btn" style="margin-right:10px;">← Back to Main</a>
-      <a href="profile.php" class="login-btn">Profile</a>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <a href="../HTML/main.php" class="login-btn">← Back to Main</a>
+        <a href="profile.php" class="login-btn">Profile</a>
+      </div>
       <div class="menu-toggle" id="menuToggle">☰</div>
     </div>
   </header>
@@ -540,7 +541,6 @@ footer {
   transition:
     border-color 0.2s,
     background 0.2s;
-  /* override any inherited background from .socials img */
   background: transparent;
   backdrop-filter: none;
   padding: 0;
