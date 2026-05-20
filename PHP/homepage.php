@@ -363,11 +363,6 @@ include("connect.php");
     </div>
     <div class="footer-bottom">
       <span>© 2025 Cubiertos.food.hub — All rights reserved.</span>
-      <div class="footer-socials">
-        <a href="https://www.facebook.com/profile.php?id=61555258696901" target="_blank"><img src="../IMAGES/Facebook.png" alt="Facebook" /></a>
-        <a href="https://www.instagram.com/cubiertos2024/" target="_blank"><img src="../IMAGES/Instagram.png" alt="Instagram" /></a>
-        <a href="https://mail.google.com/mail/u/0/#inbox?compose=new" target="_blank"><img src="../IMAGES/Mail.png" alt="Mail" /></a>
-      </div>
     </div>
   </footer>
 
@@ -453,6 +448,181 @@ include("connect.php");
     }
     #calRetryBtn:hover { background: #a05a1e; }
     @media (max-width: 500px) { .slot-grid { grid-template-columns: 1fr; } }
+    /* =========================
+   FOOTER  
+========================= */
+footer {
+   background:#283618; 
+  padding: 56px 80px 36px;
+  color: rgba(255, 255, 255, 0.55);
+  margin-top: 0;
+  border-top: none;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 32px;
+}
+
+.footer-brand {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.footer-brand img {
+  width: 100px;
+  filter: brightness(0) invert(1) opacity(0.8);
+}
+
+.footer-tagline {
+  font-size: 0.82rem;
+  font-style: italic;
+  color: rgba(255, 255, 255, 0.4);
+  max-width: 200px;
+  line-height: 1.5;
+  font-family: "Playfair Display", serif;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.875rem;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover {
+  color: #dda15e;
+}
+
+.footer-contact {
+  font-size: 0.82rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.footer-contact strong {
+  color: rgba(255, 255, 255, 0.8);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.78rem;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 16px;
+}
+
+.footer-socials a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+  /* override any inherited background from .socials img */
+  background: transparent;
+  backdrop-filter: none;
+  padding: 0;
+}
+
+.footer-socials a:hover {
+  border-color: #dda15e;
+  background: rgba(221, 161, 94, 0.1);
+  transform: none;
+}
+
+.footer-socials img {
+  width: 16px;
+  height: 16px;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+  backdrop-filter: none;
+  filter: brightness(0) invert(1) opacity(0.7);
+}
+
+.footer-socials img:hover {
+  transform: none;
+}
+
+/* =========================
+   FLOATING FOOD CARDS
+========================= */
+.floating-food-card {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+
+  padding: 14px;
+  border-radius: 20px;
+
+
+  animation: floatCard 4s ease-in-out infinite;
+}
+
+.floating-food-card img {
+  width: 60px;
+  height: 60px;
+  border-radius: 15px;
+  object-fit: cover;
+}
+
+.floating-food-card h4 {
+  color: #283618;
+  font-size: 0.95rem;
+}
+
+.floating-food-card p {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+.card-1 {
+  top: 20%;
+  right: 8%;
+}
+
+.card-2 {
+  bottom: 18%;
+  right: 12%;
+}
+
+@keyframes floatCard {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
   </style>
 
   <script>

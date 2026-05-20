@@ -520,7 +520,7 @@ body {
 footer {
   width: 100%;
 
-  background:#283618; 
+  background: #283618;
 
   padding: 56px 80px 36px;
 
@@ -530,22 +530,6 @@ footer {
 
   position: relative;
   overflow: hidden;
-}
-
-/* Glow Circle */
-footer::before {
-  content: "";
-  position: absolute;
-
-  width: 260px;
-  height: 260px;
-
-  background: rgba(255, 255, 255, 0.05);
-
-  border-radius: 50%;
-
-  top: -100px;
-  right: -100px;
 }
 
 /* TOP */
