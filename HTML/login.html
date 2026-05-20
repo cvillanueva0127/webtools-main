@@ -1,254 +1,384 @@
 <!doctype html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Login — Cubiertos</title>
-        <link rel="icon" type="image/jpg" href="../IMAGES/logo.jpg">
+    <link rel="icon" type="image/jpg" href="../IMAGES/logo.jpg" />
 
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/>
+    <link
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../CSS/login.css" />
-</head>
+  </head>
 
-<body>
-
-<div class="container" id="mainContainer">
-
-    <!-- ===========================
+  <body>
+    <div class="container" id="mainContainer">
+      <!-- ===========================
          LOGIN PANEL
     =========================== -->
-    <div class="form-box login">
+      <div class="form-box login">
         <form action="../PHP/register.php" method="POST">
+          <h1>Welcome Back</h1>
+          <p class="form-subtitle">Sign in to continue to Cubiertos</p>
 
-            <h1>Welcome Back</h1>
-            <p class="form-subtitle">Sign in to continue to Cubiertos</p>
+          <!-- Error / Success banner -->
+          <div id="loginMsg" class="msg-banner"></div>
 
-            <!-- Error / Success banner -->
-            <div id="loginMsg" class="msg-banner"></div>
+          <div class="input-box">
+            <input
+              type="email"
+              name="email"
+              id="loginEmail"
+              placeholder="Email address"
+              required
+            />
+            <i class="bx bxs-envelope"></i>
+          </div>
 
-            <div class="input-box">
-                <input type="email" name="email" placeholder="Email address" required />
-                <i class="bx bxs-envelope"></i>
-            </div>
+          <div class="input-box">
+            <input
+              type="password"
+              name="password"
+              id="loginPassword"
+              placeholder="Password"
+              required
+            />
+            <i
+              class="bx bxs-lock-alt"
+              onclick="togglePassword('loginPassword', this)"
+            ></i>
+          </div>
 
-            <div class="input-box">
-                <input type="password" name="password" id="loginPassword"
-                       placeholder="Password" required />
-                <i class="bx bxs-lock-alt" onclick="togglePassword('loginPassword', this)"></i>
-            </div>
+          <div class="remember-forgot">
+            <label>
+              <input type="checkbox" name="remember" id="rememberMe" />
+              Remember me
+            </label>
+            <a href="../PHP/forgot-password.php">Forgot password?</a>
+          </div>
 
-            <div class="remember-forgot">
-                <label>
-                    <input type="checkbox" name="remember">
-                    Remember me
-                </label>
-                <a href="../PHP/forgot-password.php">Forgot password?</a>
-            </div>
-
-            <button type="submit" name="signIn" class="btn">Sign In</button>
-
+          <button type="submit" name="signIn" class="btn">Sign In</button>
         </form>
-    </div>
+      </div>
 
-    <!-- ===========================
+      <!-- ===========================
          REGISTER PANEL
     =========================== -->
-    <div class="form-box register">
+      <div class="form-box register">
         <form action="../PHP/register.php" method="POST">
+          <h1>Create Account</h1>
+          <p class="form-subtitle">Join us and start booking today</p>
 
-            <h1>Create Account</h1>
-            <p class="form-subtitle">Join us and start booking today</p>
+          <!-- Register-side error banner -->
+          <div id="registerMsg" class="msg-banner"></div>
 
-            <!-- Register-side error banner -->
-            <div id="registerMsg" class="msg-banner"></div>
+          <div class="input-box">
+            <input
+              type="text"
+              name="firstName"
+              placeholder="First name"
+              required
+            />
+            <i class="bx bxs-user"></i>
+          </div>
 
-            <div class="input-box">
-                <input type="text" name="firstName" placeholder="First name" required />
-                <i class="bx bxs-user"></i>
-            </div>
+          <div class="input-box">
+            <input
+              type="text"
+              name="lastName"
+              placeholder="Last name"
+              required
+            />
+            <i class="bx bxs-user"></i>
+          </div>
 
-            <div class="input-box">
-                <input type="text" name="lastName" placeholder="Last name" required />
-                <i class="bx bxs-user"></i>
-            </div>
+          <div class="input-box">
+            <input
+              type="email"
+              name="email"
+              placeholder="Email address"
+              required
+            />
+            <i class="bx bxs-envelope"></i>
+          </div>
 
-            <div class="input-box">
-                <input type="email" name="email" placeholder="Email address" required />
-                <i class="bx bxs-envelope"></i>
-            </div>
+          <div class="input-box">
+            <select name="gender" required>
+              <option value="" disabled selected>Select gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+              <option value="Prefer not to say">Prefer not to say</option>
+            </select>
+            <i class="bx bxs-group"></i>
+          </div>
 
-            <div class="input-box">
-                <select name="gender" required>
-                    <option value="" disabled selected>Select gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                    <option value="Other">Other</option>
-                    <option value="Prefer not to say">Prefer not to say</option>
-                </select>
-                <i class="bx bxs-group"></i>
-            </div>
+          <div class="input-box">
+            <input
+              type="password"
+              name="password"
+              id="regPassword"
+              placeholder="Password"
+              required
+            />
+            <i
+              class="bx bxs-lock-alt"
+              onclick="togglePassword('regPassword', this)"
+            ></i>
+          </div>
 
-            <div class="input-box">
-                <input type="password" name="password" id="regPassword"
-                       placeholder="Password" required />
-                <i class="bx bxs-lock-alt" onclick="togglePassword('regPassword', this)"></i>
-            </div>
+          <div class="input-box">
+            <input
+              type="password"
+              name="confirmPassword"
+              id="regConfirmPassword"
+              placeholder="Confirm password"
+              required
+            />
+            <i
+              class="bx bxs-lock-alt"
+              onclick="togglePassword('regConfirmPassword', this)"
+            ></i>
+          </div>
 
-            <div class="input-box">
-                <input type="password" name="confirmPassword" id="regConfirmPassword"
-                       placeholder="Confirm password" required />
-                <i class="bx bxs-lock-alt" onclick="togglePassword('regConfirmPassword', this)"></i>
-            </div>
+          <div id="passwordMatchMsg"></div>
 
-            <div id="passwordMatchMsg"></div>
+          <!-- Password Strength -->
+          <div class="password-strength">
+            <div class="strength-bar"><div id="strengthFill"></div></div>
+            <span id="strengthText">Password strength</span>
+            <ul class="password-rules">
+              <li id="ruleLength">✔ At least 8 characters</li>
+              <li id="ruleUpper">✔ One uppercase letter</li>
+              <li id="ruleNumber">✔ One number</li>
+              <li id="ruleSpecial">✔ One special character</li>
+            </ul>
+          </div>
 
-            <!-- Password Strength -->
-            <div class="password-strength">
-                <div class="strength-bar"><div id="strengthFill"></div></div>
-                <span id="strengthText">Password strength</span>
-                <ul class="password-rules">
-                    <li id="ruleLength">✔ At least 8 characters</li>
-                    <li id="ruleUpper">✔ One uppercase letter</li>
-                    <li id="ruleNumber">✔ One number</li>
-                    <li id="ruleSpecial">✔ One special character</li>
-                </ul>
-            </div>
-
-            <button type="submit" name="signUp" class="btn">Create Account</button>
-
+          <button type="submit" name="signUp" class="btn">
+            Create Account
+          </button>
         </form>
-    </div>
+      </div>
 
-    <!-- ===========================
+      <!-- ===========================
          SLIDING TOGGLE PANELS
     =========================== -->
-    <div class="toggle-box">
-
+      <div class="toggle-box">
         <!-- LEFT — shown when login is active -->
         <div class="toggle-panel toggle-left">
-            <h1>New here?</h1>
-            <p>Create an account and discover<br>exclusive dining experiences.</p>
-            <button type="button" class="btn register-btn">Register</button>
-            <button type="button" class="btn back-home-btn"
-                    onclick="window.location.href='../HTML/main.html'">
-                ← Back to Home
-            </button>
+          <h1>New here?</h1>
+          <p>
+            Create an account and discover<br />exclusive dining experiences.
+          </p>
+          <button type="button" class="btn register-btn">Register</button>
+          <button
+            type="button"
+            class="btn back-home-btn"
+            onclick="window.location.href = '../HTML/main.php'"
+          >
+            ← Back to Home
+          </button>
         </div>
 
         <!-- RIGHT — shown when register is active -->
         <div class="toggle-panel toggle-right">
-            <h1>One of us?</h1>
-            <p>Already have an account?<br>Sign in and pick up where you left off.</p>
-            <button type="button" class="btn login-btn">Sign In</button>
+          <h1>One of us?</h1>
+          <p>
+            Already have an account?<br />Sign in and pick up where you left
+            off.
+          </p>
+          <button type="button" class="btn login-btn">Sign In</button>
         </div>
-
+      </div>
     </div>
+    <!-- /.container -->
 
-</div><!-- /.container -->
+    <script>
+      // ===== COOKIE HELPERS =====
+      function getCookie(name) {
+        const match = document.cookie.match(
+          new RegExp("(?:^|; )" + name + "=([^;]*)"),
+        );
+        return match ? decodeURIComponent(match[1]) : null;
+      }
+      function setCookie(name, value, days) {
+        const expires = new Date(
+          Date.now() + days * 24 * 60 * 60 * 1000,
+        ).toUTCString();
+        document.cookie =
+          name +
+          "=" +
+          encodeURIComponent(value) +
+          "; expires=" +
+          expires +
+          "; path=/; SameSite=Lax";
+      }
+      function deleteCookie(name) {
+        document.cookie =
+          name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+      }
 
-<script>
-// ===== SHOW URL MESSAGES =====
-(function () {
-    const params  = new URLSearchParams(window.location.search);
-    const error   = params.get('error');
-    const success = params.get('success');
-    const panel   = params.get('panel');
+      // ===== REMEMBER ME — Auto-fill + Auto-submit =====
+      (function () {
+        const emailInput = document.getElementById("loginEmail");
+        const passwordInput = document.getElementById("loginPassword");
+        const rememberCheck = document.getElementById("rememberMe");
+        const loginForm = document.querySelector(".form-box.login form");
 
-    if (panel === 'register') {
-        document.getElementById('mainContainer').classList.add('active');
-    }
+        const savedEmail = getCookie("cubiertos_email");
+        const savedPassword = getCookie("cubiertos_pass");
 
-    function showBanner(id, text, type) {
-        const el = document.getElementById(id);
-        if (!el || !text) return;
-        el.textContent  = text;
-        el.className    = 'msg-banner ' + type;
-        el.style.display = 'block';
-    }
+        // Auto-fill fields if cookies exist
+        if (savedEmail && savedPassword) {
+          emailInput.value = savedEmail;
+          passwordInput.value = savedPassword;
+          rememberCheck.checked = true;
 
-    const cleanError   = error   ? decodeURIComponent(error.replace(/\+/g, ' '))   : '';
-    const cleanSuccess = success ? decodeURIComponent(success.replace(/\+/g, ' ')) : '';
-
-    if (cleanError)   showBanner(panel === 'register' ? 'registerMsg' : 'loginMsg', cleanError, 'error');
-    if (cleanSuccess) showBanner('loginMsg', cleanSuccess, 'success');
-
-    if (error || success) history.replaceState(null, '', window.location.pathname);
-})();
-
-// ===== PASSWORD TOGGLE =====
-function togglePassword(inputId, icon) {
-    const inp    = document.getElementById(inputId);
-    const hidden = inp.type === 'password';
-    inp.type     = hidden ? 'text' : 'password';
-    icon.className = hidden ? 'bx bxs-lock-open-alt' : 'bx bxs-lock-alt';
-}
-
-// ===== PANEL TOGGLE =====
-const container   = document.getElementById('mainContainer');
-const registerBtn = document.querySelector('.register-btn');
-const loginBtn    = document.querySelector('.login-btn');
-
-if (registerBtn) registerBtn.addEventListener('click', () => container.classList.add('active'));
-if (loginBtn)    loginBtn.addEventListener('click',    () => container.classList.remove('active'));
-
-// ===== PASSWORD STRENGTH =====
-const passwordInput = document.getElementById('regPassword');
-const confirmInput  = document.getElementById('regConfirmPassword');
-const strengthFill  = document.getElementById('strengthFill');
-const strengthText  = document.getElementById('strengthText');
-const matchMsg      = document.getElementById('passwordMatchMsg');
-const ruleLength    = document.getElementById('ruleLength');
-const ruleUpper     = document.getElementById('ruleUpper');
-const ruleNumber    = document.getElementById('ruleNumber');
-const ruleSpecial   = document.getElementById('ruleSpecial');
-
-const colors = { weak: '#e74c3c', medium: '#f39c12', strong: '#27ae60' };
-
-if (passwordInput) {
-    passwordInput.addEventListener('input', () => {
-        const val = passwordInput.value;
-
-        const hasLength  = val.length >= 8;
-        const hasUpper   = /[A-Z]/.test(val);
-        const hasNumber  = /[0-9]/.test(val);
-        const hasSpecial = /[^A-Za-z0-9]/.test(val);
-        const strength   = [hasLength, hasUpper, hasNumber, hasSpecial].filter(Boolean).length;
-
-        ruleLength.style.color  = hasLength  ? colors.strong : '#a08a78';
-        ruleUpper.style.color   = hasUpper   ? colors.strong : '#a08a78';
-        ruleNumber.style.color  = hasNumber  ? colors.strong : '#a08a78';
-        ruleSpecial.style.color = hasSpecial ? colors.strong : '#a08a78';
-
-        if (strength <= 1) {
-            strengthFill.style.width      = '25%';
-            strengthFill.style.background = colors.weak;
-            strengthText.textContent      = 'Weak password';
-            strengthText.style.color      = colors.weak;
-        } else if (strength <= 3) {
-            strengthFill.style.width      = '65%';
-            strengthFill.style.background = colors.medium;
-            strengthText.textContent      = 'Getting stronger...';
-            strengthText.style.color      = colors.medium;
-        } else {
-            strengthFill.style.width      = '100%';
-            strengthFill.style.background = colors.strong;
-            strengthText.textContent      = 'Strong password ✓';
-            strengthText.style.color      = colors.strong;
+          // Auto-submit the form after a short delay so the page fully loads first
+          setTimeout(function () {
+            loginForm.submit();
+          }, 300);
         }
 
-        if (confirmInput.value) checkMatch();
-    });
-}
+        // Save or clear cookies on manual submit
+        loginForm.addEventListener("submit", function () {
+          if (rememberCheck.checked) {
+            setCookie("cubiertos_email", emailInput.value, 30);
+            setCookie("cubiertos_pass", passwordInput.value, 30);
+          } else {
+            deleteCookie("cubiertos_email");
+            deleteCookie("cubiertos_pass");
+          }
+        });
+      })();
 
-function checkMatch() {
-    if (!confirmInput.value) { matchMsg.textContent = ''; return; }
-    const match = confirmInput.value === passwordInput.value;
-    matchMsg.textContent = match ? '✔ Passwords match' : '✖ Passwords do not match';
-    matchMsg.style.color = match ? '#27ae60' : '#e74c3c';
-}
+      // ===== SHOW URL MESSAGES =====
+      (function () {
+        const params = new URLSearchParams(window.location.search);
+        const error = params.get("error");
+        const success = params.get("success");
+        const panel = params.get("panel");
 
-if (confirmInput) confirmInput.addEventListener('input', checkMatch);
-</script>
+        if (panel === "register") {
+          document.getElementById("mainContainer").classList.add("active");
+        }
 
-</body>
+        function showBanner(id, text, type) {
+          const el = document.getElementById(id);
+          if (!el || !text) return;
+          el.textContent = text;
+          el.className = "msg-banner " + type;
+          el.style.display = "block";
+        }
+
+        const cleanError = error
+          ? decodeURIComponent(error.replace(/\+/g, " "))
+          : "";
+        const cleanSuccess = success
+          ? decodeURIComponent(success.replace(/\+/g, " "))
+          : "";
+
+        if (cleanError)
+          showBanner(
+            panel === "register" ? "registerMsg" : "loginMsg",
+            cleanError,
+            "error",
+          );
+        if (cleanSuccess) showBanner("loginMsg", cleanSuccess, "success");
+
+        if (error || success)
+          history.replaceState(null, "", window.location.pathname);
+      })();
+
+      // ===== PASSWORD TOGGLE =====
+      function togglePassword(inputId, icon) {
+        const inp = document.getElementById(inputId);
+        const hidden = inp.type === "password";
+        inp.type = hidden ? "text" : "password";
+        icon.className = hidden ? "bx bxs-lock-open-alt" : "bx bxs-lock-alt";
+      }
+
+      // ===== PANEL TOGGLE =====
+      const container = document.getElementById("mainContainer");
+      const registerBtn = document.querySelector(".register-btn");
+      const loginBtn = document.querySelector(".login-btn");
+
+      if (registerBtn)
+        registerBtn.addEventListener("click", () =>
+          container.classList.add("active"),
+        );
+      if (loginBtn)
+        loginBtn.addEventListener("click", () =>
+          container.classList.remove("active"),
+        );
+
+      // ===== PASSWORD STRENGTH =====
+      const passwordInput = document.getElementById("regPassword");
+      const confirmInput = document.getElementById("regConfirmPassword");
+      const strengthFill = document.getElementById("strengthFill");
+      const strengthText = document.getElementById("strengthText");
+      const matchMsg = document.getElementById("passwordMatchMsg");
+      const ruleLength = document.getElementById("ruleLength");
+      const ruleUpper = document.getElementById("ruleUpper");
+      const ruleNumber = document.getElementById("ruleNumber");
+      const ruleSpecial = document.getElementById("ruleSpecial");
+
+      const colors = { weak: "#e74c3c", medium: "#f39c12", strong: "#27ae60" };
+
+      if (passwordInput) {
+        passwordInput.addEventListener("input", () => {
+          const val = passwordInput.value;
+
+          const hasLength = val.length >= 8;
+          const hasUpper = /[A-Z]/.test(val);
+          const hasNumber = /[0-9]/.test(val);
+          const hasSpecial = /[^A-Za-z0-9]/.test(val);
+          const strength = [hasLength, hasUpper, hasNumber, hasSpecial].filter(
+            Boolean,
+          ).length;
+
+          ruleLength.style.color = hasLength ? colors.strong : "#a08a78";
+          ruleUpper.style.color = hasUpper ? colors.strong : "#a08a78";
+          ruleNumber.style.color = hasNumber ? colors.strong : "#a08a78";
+          ruleSpecial.style.color = hasSpecial ? colors.strong : "#a08a78";
+
+          if (strength <= 1) {
+            strengthFill.style.width = "25%";
+            strengthFill.style.background = colors.weak;
+            strengthText.textContent = "Weak password";
+            strengthText.style.color = colors.weak;
+          } else if (strength <= 3) {
+            strengthFill.style.width = "65%";
+            strengthFill.style.background = colors.medium;
+            strengthText.textContent = "Getting stronger...";
+            strengthText.style.color = colors.medium;
+          } else {
+            strengthFill.style.width = "100%";
+            strengthFill.style.background = colors.strong;
+            strengthText.textContent = "Strong password ✓";
+            strengthText.style.color = colors.strong;
+          }
+
+          if (confirmInput.value) checkMatch();
+        });
+      }
+
+      function checkMatch() {
+        if (!confirmInput.value) {
+          matchMsg.textContent = "";
+          return;
+        }
+        const match = confirmInput.value === passwordInput.value;
+        matchMsg.textContent = match
+          ? "✔ Passwords match"
+          : "✖ Passwords do not match";
+        matchMsg.style.color = match ? "#27ae60" : "#e74c3c";
+      }
+
+      if (confirmInput) confirmInput.addEventListener("input", checkMatch);
+    </script>
+  </body>
 </html>

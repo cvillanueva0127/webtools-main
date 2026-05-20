@@ -1,3 +1,7 @@
+<?php
+session_start();
+$isLoggedIn = isset($_SESSION['user_id']);
+?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -19,9 +23,8 @@
     <!-- HEADER -->
     <header class="glass-header">
       <div class="nav-container">
-        <a href="../HTML/main.html" class="logo">
+        <a href="../HTML/main.php" class="logo">
           <img src="../IMAGES/logo2.jpg" alt="Cubiertos Logo" />
-
           <div class="logo-text">
             <h2>Cubiertos</h2>
             <span>FOOD HUB</span>
@@ -29,37 +32,38 @@
         </a>
 
         <nav class="navbar">
-          <a href="../HTML/main.html" class="active">Home</a>
+          <a href="../HTML/main.php" class="active">Home</a>
           <a href="../HTML/about.html">About</a>
           <a href="../HTML/Store.html">Stores</a>
           <a href="../HTML/contacts.html">Contacts</a>
         </nav>
 
-        <a href="../HTML/login.html" class="login-btn"> Log in </a>
+        <?php if ($isLoggedIn): ?>
+          <!-- Logged in: show Profile button -->
+          <a href="../PHP/profile.php" class="login-btn">Profile</a>
+        <?php else: ?>
+          <!-- Not logged in: show Log In button -->
+          <a href="../HTML/login.html" class="login-btn">Log in</a>
+        <?php endif; ?>
 
         <div class="menu-toggle" id="menuToggle">☰</div>
       </div>
     </header>
-    <!-- floating buttons dun sa may check our -->
 
     <!-- dito yung socials -->
     <div class="socials">
-      <a
-        href="https://www.facebook.com/profile.php?id=61555258696901"
-        target="_blank"
-        ><img src="../IMAGES/Facebook.png" alt="Facebook"
-      /></a>
-      <a href="https://www.instagram.com/cubiertos2024/" target="_blank"
-        ><img src="../IMAGES/Instagram.png" alt="Instagram"
-      /></a>
-      <a
-        href="https://mail.google.com/mail/u/0/#sent?compose=CllgCJTNqrcXTJzgQrjqbjtCXnqKDjzdGRPvdqdcFsXlDWgKNhcCtqcDSQcFtPLcvbmcdswCCcL"
-        target="_blank"
-        ><img src="../IMAGES/Mail.png" alt="YouTube"
-      /></a>
+      <a href="https://www.facebook.com/profile.php?id=61555258696901" target="_blank">
+        <img src="../IMAGES/Facebook.png" alt="Facebook" />
+      </a>
+      <a href="https://www.instagram.com/cubiertos2024/" target="_blank">
+        <img src="../IMAGES/Instagram.png" alt="Instagram" />
+      </a>
+      <a href="https://mail.google.com/mail/u/0/#sent?compose=CllgCJTNqrcXTJzgQrjqbjtCXnqKDjzdGRPvdqdcFsXlDWgKNhcCtqcDSQcFtPLcvbmcdswCCcL" target="_blank">
+        <img src="../IMAGES/Mail.png" alt="Mail" />
+      </a>
     </div>
 
-    <!-- main page dito  -->
+    <!-- main page -->
     <section id="mainpage">
       <section class="mainpage">
         <div class="mainpage-context">
@@ -71,12 +75,16 @@
             Every journey has its ups and downs <br />and Cubiertos is no
             exception.
           </p>
-          <a href="login.html" class="book-btn">BOOK NOW!</a>
+          <?php if ($isLoggedIn): ?>
+            <a href="../PHP/homepage.php" class="book-btn">BOOK NOW!</a>
+          <?php else: ?>
+            <a href="../HTML/login.html" class="book-btn">BOOK NOW!</a>
+          <?php endif; ?>
         </div>
       </section>
     </section>
 
-    <!-- menu slide show dito  -->
+    <!-- menu slideshow -->
     <section id="page2">
       <div class="w3-content w3-section">
         <div class="mySlides">
@@ -108,67 +116,48 @@
             <a href="menu.html" class="promo-btn">See Menu</a>
           </div>
         </div>
-        <!-- SLIDE 1: Pasta spread, sandwich wrap, green drink -->
+
         <div class="mySlides">
           <img src="../IMAGES/slide1.png" alt="Slide 1" />
           <div class="menu-promo-overlay">
             <h2>Pasta, Sandwich Wrap & Green Drink</h2>
-            <p>
-              A satisfying full meal — baked pasta, a fresh sandwich wrap,
-              toasted bread, and a cool refreshing green drink.
-            </p>
+            <p>A satisfying full meal — baked pasta, a fresh sandwich wrap, toasted bread, and a cool refreshing green drink.</p>
             <a href="menu.html" class="promo-btn">See Menu</a>
           </div>
         </div>
 
-        <!-- SLIDE 2: Carbonara with egg, pesto penne, potato mojos -->
         <div class="mySlides" style="display: none">
           <img src="../IMAGES/slide2.png" alt="Slide 2" />
           <div class="menu-promo-overlay">
             <h2>Carbonara, Pesto Penne & Potato Mojos</h2>
-            <p>
-              Creamy carbonara topped with a sunny-side egg, herby pesto penne,
-              crispy potato mojos, and warm garlic bread.
-            </p>
+            <p>Creamy carbonara topped with a sunny-side egg, herby pesto penne, crispy potato mojos, and warm garlic bread.</p>
             <a href="menu.html" class="promo-btn">See Menu</a>
           </div>
         </div>
 
-        <!-- SLIDE 3: Baked pasta, creamy mushroom, strawberry iced drink -->
         <div class="mySlides" style="display: none">
           <img src="../IMAGES/slide3.png" alt="Slide 3" />
           <div class="menu-promo-overlay">
             <h2>Baked Pasta, Creamy Mushroom & Iced Drink</h2>
-            <p>
-              Rich baked pasta in tomato sauce, a creamy mushroom dish, toasted
-              bread, and a sweet strawberry iced drink.
-            </p>
+            <p>Rich baked pasta in tomato sauce, a creamy mushroom dish, toasted bread, and a sweet strawberry iced drink.</p>
             <a href="menu.html" class="promo-btn">See Menu</a>
           </div>
         </div>
 
-        <!-- SLIDE 4: Egg-topped carbonara, wrap, sauce-drizzled toast -->
         <div class="mySlides" style="display: none">
           <img src="../IMAGES/slide4.png" alt="Slide 4" />
           <div class="menu-promo-overlay">
             <h2>Carbonara with Egg, Wrap & Toasted Bread</h2>
-            <p>
-              Silky carbonara topped with a sunny-side egg, a hearty wrap, and
-              toasted bread drizzled with creamy sauce.
-            </p>
+            <p>Silky carbonara topped with a sunny-side egg, a hearty wrap, and toasted bread drizzled with creamy sauce.</p>
             <a href="menu.html" class="promo-btn">See Menu</a>
           </div>
         </div>
 
-        <!-- SLIDE 5: Crispy fries, fried chicken, onion rings, dip -->
         <div class="mySlides" style="display: none">
           <img src="../IMAGES/slide5.png" alt="Slide 5" />
           <div class="menu-promo-overlay">
             <h2>Crispy Fries, Fried Chicken & Onion Rings</h2>
-            <p>
-              Golden seasoned fries, crispy fried chicken, crunchy onion rings,
-              and a creamy dipping sauce on the side.
-            </p>
+            <p>Golden seasoned fries, crispy fried chicken, crunchy onion rings, and a creamy dipping sauce on the side.</p>
             <a href="menu.html" class="promo-btn">See Menu</a>
           </div>
         </div>
@@ -180,84 +169,46 @@
       </div>
     </section>
 
-    <!-- best seller dito -->
+    <!-- best sellers -->
     <section id="best-sellers" class="section best-sellers">
       <h2 class="section-title">OUR BEST SELLERS</h2>
       <div class="title-bar"></div>
-
       <div class="page3">
         <div class="card">
           <img src="../IMAGES/Pastareview.jpg" alt="Classic Carbonara" />
           <h3>Classic Carbonara with Egg on the top</h3>
-          <p>
-            This meal includes a creamy pasta duo served with toasted bread: one
-            plate features spaghetti topped with an egg in white sauce, while
-            the other has penne pasta tossed in a flavorful pesto-style sauce
-            with bits of meat or seafood. Served with crispy potato chips on the
-            side.
-          </p>
+          <p>This meal includes a creamy pasta duo served with toasted bread: one plate features spaghetti topped with an egg in white sauce, while the other has penne pasta tossed in a flavorful pesto-style sauce with bits of meat or seafood. Served with crispy potato chips on the side.</p>
         </div>
-
         <div class="card">
           <img src="../IMAGES/Fries.jpg" alt="Burger and Fries" />
           <h3>Lunch Meal Burger & Fries</h3>
-          <p>
-            This meal features a hearty serving of baked pasta with rich tomato
-            sauce and melted cheese, paired with toasted bread on the side.
-            Alongside it is a half sandwich with lettuce and meat filling on a
-            white plate, and a refreshing iced matcha green tea drink.
-          </p>
+          <p>This meal features a hearty serving of baked pasta with rich tomato sauce and melted cheese, paired with toasted bread on the side. Alongside it is a half sandwich with lettuce and meat filling on a white plate, and a refreshing iced matcha green tea drink.</p>
         </div>
       </div>
     </section>
+
     <!-- STATS SECTION -->
     <section class="quick-stats">
-      <div class="quick-box">
-        <h2>1K+</h2>
-        <p>Happy Customers</p>
-      </div>
-
-      <div class="quick-box">
-        <h2>25+</h2>
-        <p>Food Choices</p>
-      </div>
-
-      <div class="quick-box">
-        <h2>4.9 ★</h2>
-        <p>Customer Rating</p>
-      </div>
-
-      <div class="quick-box">
-        <h2>Fast</h2>
-        <p>Booking Service</p>
-      </div>
+      <div class="quick-box"><h2>1K+</h2><p>Happy Customers</p></div>
+      <div class="quick-box"><h2>25+</h2><p>Food Choices</p></div>
+      <div class="quick-box"><h2>4.9 ★</h2><p>Customer Rating</p></div>
+      <div class="quick-box"><h2>Fast</h2><p>Booking Service</p></div>
     </section>
-    <!-- dito review section -->
+
+    <!-- REVIEWS -->
     <section id="reviews" class="section best-sellers">
       <h2 class="section-title">REVIEWS</h2>
       <div class="title-bar"></div>
-
       <main class="reviews-container">
         <div class="review-card">
           <div class="review-content">
             <div class="review-image-container">
-              <img
-                src="../IMAGES/classic carbonara.jpg"
-                alt="Classic Carbonara"
-                class="review-image"
-              />
+              <img src="../IMAGES/classic carbonara.jpg" alt="Classic Carbonara" class="review-image" />
             </div>
             <div class="review-details">
-              <p class="meal-name">
-                Breakfast Meal Pasta with Egg, Garlic Bread & Wrap
-              </p>
-              <p class="reviewer-info">
-                <span class="rating">★ 4.8</span> Reviewed by Anna M.
-              </p>
-              <p class="review-text">
-                "Their creamy pasta topped with a perfectly cooked sunny-side
-                egg is both hearty and flavorful..."
-              </p>
+              <p class="meal-name">Breakfast Meal Pasta with Egg, Garlic Bread & Wrap</p>
+              <p class="reviewer-info"><span class="rating">★ 4.8</span> Reviewed by Anna M.</p>
+              <p class="review-text">"Their creamy pasta topped with a perfectly cooked sunny-side egg is both hearty and flavorful..."</p>
               <div class="review-actions">
                 <i class="far fa-thumbs-up action-icon"></i>
                 <i class="far fa-heart action-icon"></i>
@@ -266,26 +217,15 @@
             </div>
           </div>
         </div>
-
         <div class="review-card">
           <div class="review-content">
             <div class="review-image-container">
-              <img
-                src="../IMAGES/burger.jpg"
-                alt="Lunch Meal"
-                class="review-image"
-              />
+              <img src="../IMAGES/burger.jpg" alt="Lunch Meal" class="review-image" />
             </div>
             <div class="review-details">
               <p class="meal-name">Lunch Meal Burger & Fries</p>
-              <p class="reviewer-info">
-                <span class="rating">★ 4.7</span> Reviewed by Mark D.
-              </p>
-              <p class="review-text">
-                "The burger is juicy with soft buns, served with golden, crispy
-                fries and tangy dip. Generous serving size makes it sharable and
-                perfect for a casual lunch out."
-              </p>
+              <p class="reviewer-info"><span class="rating">★ 4.7</span> Reviewed by Mark D.</p>
+              <p class="review-text">"The burger is juicy with soft buns, served with golden, crispy fries and tangy dip. Generous serving size makes it sharable and perfect for a casual lunch out."</p>
               <div class="review-actions">
                 <i class="far fa-thumbs-up action-icon"></i>
                 <i class="far fa-heart action-icon"></i>
@@ -301,7 +241,6 @@
     <section class="food-gallery">
       <h2 class="section-title">FOOD GALLERY</h2>
       <div class="title-bar"></div>
-
       <div class="gallery-grid">
         <img src="../IMAGES/mojos 1.png" alt="" />
         <img src="../IMAGES/Fries.jpg" alt="" />
@@ -316,11 +255,12 @@
     <section class="hero">
       <div class="hero-content">
         <h1><span>WANT TO ELEVATE YOUR</span><br />ONLINE EXPERIENCE?</h1>
-        <p>
-          Ready to get started? Our online booking is open. Book your
-          appointment today!
-        </p>
-        <a href="login.html" class="book">BOOK NOW!</a>
+        <p>Ready to get started? Our online booking is open. Book your appointment today!</p>
+        <?php if ($isLoggedIn): ?>
+          <a href="../PHP/homepage.php" class="book">BOOK NOW!</a>
+        <?php else: ?>
+          <a href="../HTML/login.html" class="book">BOOK NOW!</a>
+        <?php endif; ?>
       </div>
       <div class="hero-image">
         <img src="../IMAGES/team.png" alt="Team Image" />
@@ -332,16 +272,18 @@
       <div class="footer-top">
         <div class="footer-brand">
           <img src="../IMAGES/logo.jpg" alt="Cubiertos Food Hub" />
-          <p class="footer-tagline">
-            "Savor the flavors where every bite tells a story."
-          </p>
+          <p class="footer-tagline">"Savor the flavors where every bite tells a story."</p>
         </div>
         <div class="footer-links">
-          <a href="../HTML/main.html">Home</a>
+          <a href="../HTML/main.php">Home</a>
           <a href="../HTML/about.html">About</a>
           <a href="../HTML/Store.html">Our Stores</a>
           <a href="../HTML/contacts.html">Contacts</a>
-          <a href="../HTML/login.html">Log in</a>
+          <?php if ($isLoggedIn): ?>
+            <a href="../PHP/profile.php">Profile</a>
+          <?php else: ?>
+            <a href="../HTML/login.html">Log in</a>
+          <?php endif; ?>
         </div>
         <div class="footer-contact">
           <strong>Get in touch</strong>
@@ -351,7 +293,6 @@
       </div>
       <div class="footer-bottom">
         <span>© 2025 Cubiertos.food.hub — All rights reserved.</span>
-        </div>
       </div>
     </footer>
 
@@ -376,7 +317,6 @@
 
       const menuToggle = document.getElementById("menuToggle");
       const navbar = document.querySelector(".navbar");
-
       menuToggle.addEventListener("click", () => {
         navbar.classList.toggle("show");
       });

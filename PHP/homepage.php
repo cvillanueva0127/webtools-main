@@ -23,7 +23,9 @@ include("connect.php");
           <span>FOOD HUB</span>
         </div>
       </a>
-      <a href="profile.php" class="login-btn"> Profile</a>
+      <!-- ✅ Back to Main button added here -->
+      <a href="../HTML/main.php" class="login-btn" style="margin-right:10px;">← Back to Main</a>
+      <a href="profile.php" class="login-btn">Profile</a>
       <div class="menu-toggle" id="menuToggle">☰</div>
     </div>
   </header>
@@ -148,16 +150,9 @@ include("connect.php");
 
         <!-- PHONE -->
         <p><i>Phone Number</i><br>
-          <input
-            type="tel"
-            name="phone"
-            id="phone"
-            maxlength="11"
-            pattern="[0-9]{11}"
-            placeholder="09XXXXXXXXX"
-            value="<?= $prefill_phone ?>"
-            oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11)"
-          >
+          <input type="tel" name="phone" id="phone" maxlength="11" pattern="[0-9]{11}"
+            placeholder="09XXXXXXXXX" value="<?= $prefill_phone ?>"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11)">
         </p>
 
         <!-- OCCASION -->
@@ -180,7 +175,7 @@ include("connect.php");
           </span>
         </p>
 
-        <!-- ================= AVAILABILITY CALENDAR ================= -->
+        <!-- AVAILABILITY CALENDAR -->
         <div class="avail-calendar-wrap">
           <div class="avail-cal-header">
             <button type="button" class="avail-cal-nav" id="calPrev">&#8249;</button>
@@ -199,7 +194,6 @@ include("connect.php");
           </div>
         </div>
 
-        <!-- Hidden date input -->
         <input type="hidden" name="date" id="dateInput">
         <p id="selectedDateLabel" style="font-size:0.9rem; color:#bc6c25; font-weight:600; margin-bottom:10px; display:none;">
            Selected: <span id="selectedDateText"></span>
@@ -355,11 +349,11 @@ include("connect.php");
         <p class="footer-tagline">"Savor the flavors where every bite tells a story."</p>
       </div>
       <div class="footer-links">
-        <a href="../HTML/main.html">Home</a>
+        <a href="../HTML/main.php">Home</a>
         <a href="../HTML/about.html">About</a>
         <a href="../HTML/Store.html">Our Stores</a>
         <a href="../HTML/contacts.html">Contacts</a>
-        <a href="../HTML/login.html">Log in</a>
+        <a href="profile.php">Profile</a>
       </div>
       <div class="footer-contact">
         <strong>Get in touch</strong>
@@ -377,7 +371,6 @@ include("connect.php");
     </div>
   </footer>
 
-  <!-- ================= STYLES ================= -->
   <style>
     .avail-calendar-wrap {
       background: #fff; border-radius: 20px; padding: 22px;
@@ -462,28 +455,17 @@ include("connect.php");
     @media (max-width: 500px) { .slot-grid { grid-template-columns: 1fr; } }
   </style>
 
-  <!-- ================= JS ================= -->
   <script>
-
-  // ── cap() helper — capitalises first letter ───────────────────────────────
-  function cap(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-  }
-
-  // ── validateProofSize() ───────────────────────────────────────────────────
+  function cap(str) { return str.charAt(0).toUpperCase() + str.slice(1); }
   function validateProofSize(input) {
-    const maxSize = 100 * 1024 * 1024; // 100 MB
+    const maxSize = 100 * 1024 * 1024;
     const errEl   = document.getElementById('proofError');
     if (input.files[0] && input.files[0].size > maxSize) {
-      errEl.style.display = 'block';
-      input.value = '';
-    } else {
-      errEl.style.display = 'none';
-    }
+      errEl.style.display = 'block'; input.value = '';
+    } else { errEl.style.display = 'none'; }
   }
 
   document.addEventListener("DOMContentLoaded", function () {
-
     const form          = document.getElementById("bookingForm");
     const msgBox        = document.getElementById("formMessage");
     const submitBtn     = document.getElementById("submitBtn");
@@ -492,108 +474,58 @@ include("connect.php");
     const guestWarning  = document.getElementById("guestWarning");
     const selectedLabel = document.getElementById("selectedDateLabel");
     const selectedText  = document.getElementById("selectedDateText");
-
     const SLOTS = ['morning', 'afternoon', 'evening'];
+    let calYear = new Date().getFullYear(), calMonth = new Date().getMonth() + 1;
+    let availability = {}, selectedDate = '', slotRemaining = {};
 
-    let calYear       = new Date().getFullYear();
-    let calMonth      = new Date().getMonth() + 1;
-    let availability  = {};
-    let selectedDate  = '';
-    let slotRemaining = {};
-
-    // ── CAPACITY BANNER ───────────────────────────────────────────────────────
     const slotSection    = document.querySelector('.slot-section');
     const capacityBanner = document.createElement('div');
     capacityBanner.id    = 'capacityBanner';
     slotSection.insertBefore(capacityBanner, slotSection.querySelector('.slot-grid'));
 
-    // ── CALENDAR ──────────────────────────────────────────────────────────────
     async function loadCalendar(year, month) {
       const label = document.getElementById('calMonthLabel');
       const grid  = document.getElementById('availGrid');
-
       label.textContent = 'Loading...';
-      grid.innerHTML    = '<div style="grid-column:1/-1;text-align:center;color:#aaa;padding:18px;font-size:0.85rem;">Fetching availability…</div>';
-
+      grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:#aaa;padding:18px;font-size:0.85rem;">Fetching availability…</div>';
       try {
-        const res = await fetch('get_calendar_availability.php?year=' + year + '&month=' + month, {
-          method: 'GET', headers: { 'Accept': 'application/json' }, cache: 'no-cache'
-        });
-
+        const res = await fetch('get_calendar_availability.php?year=' + year + '&month=' + month, { method: 'GET', headers: { 'Accept': 'application/json' }, cache: 'no-cache' });
         if (!res.ok) throw new Error('HTTP ' + res.status);
-
         const raw = await res.text();
         let data;
-        try {
-          data = JSON.parse(raw);
-        } catch (parseErr) {
-          console.error('Calendar non-JSON response:', raw.substring(0, 300));
-          throw new Error('Invalid response from server');
-        }
-
-        if (data.success) {
-          availability = data.availability;
-          renderCalendar(year, month);
-        } else {
-          showCalError(label, grid, data.message || 'Could not load availability.');
-        }
-      } catch (e) {
-        console.error('Calendar fetch error:', e.message);
-        showCalError(label, grid, 'Could not load availability. Please refresh.');
-      }
+        try { data = JSON.parse(raw); } catch (parseErr) { throw new Error('Invalid response from server'); }
+        if (data.success) { availability = data.availability; renderCalendar(year, month); }
+        else { showCalError(label, grid, data.message || 'Could not load availability.'); }
+      } catch (e) { showCalError(label, grid, 'Could not load availability. Please refresh.'); }
     }
 
     function showCalError(label, grid, message) {
       label.textContent = 'Failed to load';
-      grid.innerHTML = `
-        <div style="grid-column:1/-1;text-align:center;color:#e74c3c;padding:18px;font-size:0.85rem;">
-          ⚠️ ${message}<br>
-          <button id="calRetryBtn" onclick="retryCalendar()">🔄 Retry</button>
-        </div>`;
+      grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;color:#e74c3c;padding:18px;font-size:0.85rem;">⚠️ ${message}<br><button id="calRetryBtn" onclick="retryCalendar()">🔄 Retry</button></div>`;
     }
-
     window.retryCalendar = function () { loadCalendar(calYear, calMonth); };
 
     function renderCalendar(year, month) {
-      const monthNames = ['January','February','March','April','May','June',
-                          'July','August','September','October','November','December'];
+      const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
       document.getElementById('calMonthLabel').textContent = monthNames[month - 1] + ' ' + year;
-
-      const grid        = document.getElementById('availGrid');
-      grid.innerHTML    = '';
-      const firstDay    = new Date(year, month - 1, 1).getDay();
+      const grid = document.getElementById('availGrid');
+      grid.innerHTML = '';
+      const firstDay = new Date(year, month - 1, 1).getDay();
       const daysInMonth = new Date(year, month, 0).getDate();
-      const todayStr    = new Date().toISOString().split('T')[0];
-
-      for (let i = 0; i < firstDay; i++) {
-        const empty = document.createElement('div');
-        empty.className = 'avail-day empty';
-        grid.appendChild(empty);
-      }
-
+      const todayStr = new Date().toISOString().split('T')[0];
+      for (let i = 0; i < firstDay; i++) { const e = document.createElement('div'); e.className = 'avail-day empty'; grid.appendChild(e); }
       for (let d = 1; d <= daysInMonth; d++) {
         const dateStr = year + '-' + String(month).padStart(2,'0') + '-' + String(d).padStart(2,'0');
-        const info    = availability[dateStr] || { status: 'past' };
-        const cell    = document.createElement('div');
-
+        const info = availability[dateStr] || { status: 'past' };
+        const cell = document.createElement('div');
         cell.className = 'avail-day ' + info.status;
-        if (dateStr === todayStr)     cell.classList.add('today-ring');
+        if (dateStr === todayStr) cell.classList.add('today-ring');
         if (dateStr === selectedDate) cell.classList.add('selected-day');
-
-        cell.innerHTML = '<span class="day-num">' + d + '</span>' +
-          (info.status !== 'past' ? '<span class="day-dot"></span>' : '');
-
+        cell.innerHTML = '<span class="day-num">' + d + '</span>' + (info.status !== 'past' ? '<span class="day-dot"></span>' : '');
         const tipMap = { open: 'Available', partial: 'Partially Booked', full: 'Fully Booked', past: 'Past date' };
         cell.title = tipMap[info.status] || '';
-        if (info.remaining !== undefined && info.status !== 'full') {
-          cell.title += ' · ' + info.remaining + ' guest slots remaining';
-        }
-
-        // ── FIX: full days are NOT clickable ─────────────────────────────────
-        if (info.status === 'open' || info.status === 'partial') {
-          cell.addEventListener('click', () => selectDate(dateStr, cell));
-        }
-
+        if (info.remaining !== undefined && info.status !== 'full') cell.title += ' · ' + info.remaining + ' guest slots remaining';
+        if (info.status === 'open' || info.status === 'partial') cell.addEventListener('click', () => selectDate(dateStr, cell));
         grid.appendChild(cell);
       }
     }
@@ -601,280 +533,154 @@ include("connect.php");
     function selectDate(dateStr, cell) {
       document.querySelectorAll('.avail-day.selected-day').forEach(c => c.classList.remove('selected-day'));
       cell.classList.add('selected-day');
-
-      selectedDate    = dateStr;
-      dateInput.value = dateStr;
-
+      selectedDate = dateStr; dateInput.value = dateStr;
       const d = new Date(dateStr + 'T00:00:00');
-      selectedText.textContent = d.toLocaleDateString('en-PH', {
-        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
-      });
+      selectedText.textContent = d.toLocaleDateString('en-PH', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
       selectedLabel.style.display = 'block';
-
       checkAllSlots(dateStr);
     }
 
-    // ── SLOT CHECKING ─────────────────────────────────────────────────────────
     async function checkAllSlots(date) {
       slotRemaining = {};
-
       SLOTS.forEach(slot => {
-        const card   = document.getElementById('slot' + cap(slot));
+        const card = document.getElementById('slot' + cap(slot));
         const status = document.getElementById('status' + cap(slot));
         card.classList.remove('taken', 'available', 'selected', 'over-capacity');
-        card.querySelector('input').disabled = true;
-        card.querySelector('input').checked  = false;
+        card.querySelector('input').disabled = true; card.querySelector('input').checked = false;
         status.textContent = 'Checking…';
       });
-
-      capacityBanner.style.display = 'none';
-      guestWarning.style.display   = 'none';
-
+      capacityBanner.style.display = 'none'; guestWarning.style.display = 'none';
       await Promise.all(SLOTS.map(slot => fetchSlotStatus(date, slot)));
       applyGuestCapacityCheck();
     }
 
     async function fetchSlotStatus(date, slot) {
-      const card   = document.getElementById('slot' + cap(slot));
+      const card = document.getElementById('slot' + cap(slot));
       const status = document.getElementById('status' + cap(slot));
-      const radio  = card.querySelector('input');
-
+      const radio = card.querySelector('input');
       try {
-        const res = await fetch(
-          'check_slot.php?date=' + encodeURIComponent(date) + '&slot=' + slot,
-          { cache: 'no-cache', headers: { 'Accept': 'application/json' } }
-        );
-
+        const res = await fetch('check_slot.php?date=' + encodeURIComponent(date) + '&slot=' + slot, { cache: 'no-cache', headers: { 'Accept': 'application/json' } });
         if (!res.ok) throw new Error('HTTP ' + res.status);
-
         const raw = await res.text();
-        let json;
-        try { json = JSON.parse(raw); }
-        catch (e) {
-          console.error('Slot check non-JSON:', raw.substring(0, 200));
-          throw new Error('Invalid slot response');
-        }
-
+        let json; try { json = JSON.parse(raw); } catch (e) { throw new Error('Invalid slot response'); }
         if (json.available) {
-          slotRemaining[slot] = json.remaining;
-          card.classList.add('available');
-          card.classList.remove('taken');
-          radio.disabled     = false;
-          status.textContent = json.remaining + ' guest slots left';
+          slotRemaining[slot] = json.remaining; card.classList.add('available'); card.classList.remove('taken');
+          radio.disabled = false; status.textContent = json.remaining + ' guest slots left';
         } else {
-          slotRemaining[slot] = 0;
-          card.classList.add('taken');
-          card.classList.remove('available');
-          radio.disabled = true;
-          radio.checked  = false;
-          card.classList.remove('selected');
-          status.textContent = 'Unavailable';
+          slotRemaining[slot] = 0; card.classList.add('taken'); card.classList.remove('available');
+          radio.disabled = true; radio.checked = false; card.classList.remove('selected'); status.textContent = 'Unavailable';
         }
-      } catch (e) {
-        console.error('fetchSlotStatus error for', slot, ':', e.message);
-        slotRemaining[slot] = 999;
-        radio.disabled      = false;
-        status.textContent  = 'Status unknown';
-      }
+      } catch (e) { slotRemaining[slot] = 999; radio.disabled = false; status.textContent = 'Status unknown'; }
     }
 
-    // ── GUEST CAPACITY VALIDATION ─────────────────────────────────────────────
     function applyGuestCapacityCheck() {
       const guests = parseInt(guestsInput.value) || 0;
-
       if (guests < 1 || !selectedDate) {
         SLOTS.forEach(slot => {
-          const card  = document.getElementById('slot' + cap(slot));
+          const card = document.getElementById('slot' + cap(slot));
           const radio = card.querySelector('input');
           if (card.classList.contains('over-capacity')) {
-            card.classList.remove('over-capacity');
-            radio.disabled = false;
-            document.getElementById('status' + cap(slot)).textContent =
-              slotRemaining[slot] !== undefined ? slotRemaining[slot] + ' guest slots left' : 'Select a date first';
+            card.classList.remove('over-capacity'); radio.disabled = false;
+            document.getElementById('status' + cap(slot)).textContent = slotRemaining[slot] !== undefined ? slotRemaining[slot] + ' guest slots left' : 'Select a date first';
           }
         });
-        guestWarning.style.display   = 'none';
-        capacityBanner.style.display = 'none';
-        return;
+        guestWarning.style.display = 'none'; capacityBanner.style.display = 'none'; return;
       }
-
-      let anyExceedsCapacity = false;
-
+      let anyExceeds = false;
       SLOTS.forEach(slot => {
-        const card    = document.getElementById('slot' + cap(slot));
-        const radio   = card.querySelector('input');
+        const card = document.getElementById('slot' + cap(slot));
+        const radio = card.querySelector('input');
         const isTaken = card.classList.contains('taken');
-        const status  = document.getElementById('status' + cap(slot));
-
+        const status = document.getElementById('status' + cap(slot));
         if (!isTaken) {
           const remaining = slotRemaining[slot] !== undefined ? slotRemaining[slot] : 999;
           if (guests > remaining) {
-            card.classList.add('over-capacity');
-            radio.disabled = true;
-            radio.checked  = false;
-            card.classList.remove('selected');
-            status.textContent = '⚠️ Only ' + remaining + ' slots — your ' + guests + ' guests exceed this';
-            anyExceedsCapacity = true;
-          } else {
-            card.classList.remove('over-capacity');
-            radio.disabled     = false;
-            status.textContent = remaining + ' guest slots left';
-          }
+            card.classList.add('over-capacity'); radio.disabled = true; radio.checked = false;
+            card.classList.remove('selected'); status.textContent = '⚠️ Only ' + remaining + ' slots — your ' + guests + ' guests exceed this'; anyExceeds = true;
+          } else { card.classList.remove('over-capacity'); radio.disabled = false; status.textContent = remaining + ' guest slots left'; }
         }
       });
-
-      if (anyExceedsCapacity) {
-        guestWarning.style.display   = 'block';
-        guestWarning.textContent     = '⚠️ Your guest count (' + guests + ') exceeds the remaining capacity for one or more time slots.';
-        capacityBanner.style.display = 'block';
-        capacityBanner.innerHTML     = '⚠️ Some slots can\'t accommodate <strong>' + guests + ' guests</strong>. Reduce guests or pick another date.';
-      } else {
-        guestWarning.style.display   = 'none';
-        capacityBanner.style.display = 'none';
-      }
+      if (anyExceeds) {
+        guestWarning.style.display = 'block'; guestWarning.textContent = '⚠️ Your guest count (' + guests + ') exceeds the remaining capacity for one or more time slots.';
+        capacityBanner.style.display = 'block'; capacityBanner.innerHTML = '⚠️ Some slots can\'t accommodate <strong>' + guests + ' guests</strong>. Reduce guests or pick another date.';
+      } else { guestWarning.style.display = 'none'; capacityBanner.style.display = 'none'; }
     }
 
     guestsInput.addEventListener('input', applyGuestCapacityCheck);
 
-    // ── HIGHLIGHT SELECTED SLOT CARD ──────────────────────────────────────────
     document.querySelectorAll('.slot-card input[type="radio"]').forEach(radio => {
       radio.addEventListener('change', function () {
         document.querySelectorAll('.slot-card').forEach(c => c.classList.remove('selected'));
         if (this.checked) this.closest('.slot-card').classList.add('selected');
       });
     });
-
     document.querySelectorAll('.slot-card').forEach(card => {
       card.addEventListener('click', function (e) {
-        if (this.classList.contains('taken') || this.classList.contains('over-capacity')) {
-          e.preventDefault(); e.stopPropagation();
-        }
+        if (this.classList.contains('taken') || this.classList.contains('over-capacity')) { e.preventDefault(); e.stopPropagation(); }
       });
     });
 
-    // ── CALENDAR NAV ──────────────────────────────────────────────────────────
-    document.getElementById('calPrev').addEventListener('click', () => {
-      calMonth--;
-      if (calMonth < 1) { calMonth = 12; calYear--; }
-      loadCalendar(calYear, calMonth);
-    });
-    document.getElementById('calNext').addEventListener('click', () => {
-      calMonth++;
-      if (calMonth > 12) { calMonth = 1; calYear++; }
-      loadCalendar(calYear, calMonth);
-    });
+    document.getElementById('calPrev').addEventListener('click', () => { calMonth--; if (calMonth < 1) { calMonth = 12; calYear--; } loadCalendar(calYear, calMonth); });
+    document.getElementById('calNext').addEventListener('click', () => { calMonth++; if (calMonth > 12) { calMonth = 1; calYear++; } loadCalendar(calYear, calMonth); });
 
-    // ── GCASH TOGGLE ──────────────────────────────────────────────────────────
     const gcashRadio = document.querySelector('input[value="GCash"]');
     const cashRadio  = document.querySelector('input[value="Cash"]');
     const gcashBox   = document.getElementById('gcashBox');
-    function toggleGCashBox() {
-      gcashBox.style.display = gcashRadio.checked ? 'block' : 'none';
-    }
+    function toggleGCashBox() { gcashBox.style.display = gcashRadio.checked ? 'block' : 'none'; }
     gcashRadio.addEventListener('change', toggleGCashBox);
-    cashRadio.addEventListener('change',  toggleGCashBox);
+    cashRadio.addEventListener('change', toggleGCashBox);
     toggleGCashBox();
 
-    // ── FORM SUBMIT ───────────────────────────────────────────────────────────
     function showMsg(text, isSuccess) {
-      msgBox.textContent      = text;
-      msgBox.style.display    = 'block';
+      msgBox.textContent = text; msgBox.style.display = 'block';
       msgBox.style.background = isSuccess ? '#d1fae5' : '#fee2e2';
-      msgBox.style.color      = isSuccess ? '#065f46' : '#991b1b';
-      msgBox.style.border     = '1px solid ' + (isSuccess ? '#6ee7b7' : '#fca5a5');
+      msgBox.style.color = isSuccess ? '#065f46' : '#991b1b';
+      msgBox.style.border = '1px solid ' + (isSuccess ? '#6ee7b7' : '#fca5a5');
       msgBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
 
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
-
-      if (!dateInput.value) {
-        showMsg('⚠️ Please select a date from the calendar.', false); return;
-      }
-
-      if (!form.querySelector('input[name="slot"]:checked')) {
-        showMsg('⚠️ Please select a time slot.', false); return;
-      }
-
-      if (!form.querySelector('input[name="payment"]:checked')) {
-        showMsg('⚠️ Please select a payment method.', false); return;
-      }
-
+      if (!dateInput.value) { showMsg('⚠️ Please select a date from the calendar.', false); return; }
+      if (!form.querySelector('input[name="slot"]:checked')) { showMsg('⚠️ Please select a time slot.', false); return; }
+      if (!form.querySelector('input[name="payment"]:checked')) { showMsg('⚠️ Please select a payment method.', false); return; }
       const proofInput = document.getElementById('proof');
-      if (proofInput && proofInput.files[0]) {
-        const maxSize = 100 * 1024 * 1024;
-        if (proofInput.files[0].size > maxSize) {
-          showMsg('⚠️ Payment screenshot exceeds 100MB. Please upload a smaller image.', false); return;
-        }
-      }
-
-      if (guestWarning.style.display !== 'none') {
-        showMsg('⚠️ Your guest count exceeds the remaining capacity. Please adjust or pick another date.', false); return;
-      }
-
+      if (proofInput && proofInput.files[0] && proofInput.files[0].size > 100 * 1024 * 1024) { showMsg('⚠️ Payment screenshot exceeds 100MB.', false); return; }
+      if (guestWarning.style.display !== 'none') { showMsg('⚠️ Your guest count exceeds the remaining capacity.', false); return; }
       const checkedSlot = form.querySelector('input[name="slot"]:checked');
       if (checkedSlot) {
-        const chosenSlot = checkedSlot.value;
-        const guests     = parseInt(guestsInput.value) || 0;
-        const remaining  = slotRemaining[chosenSlot] !== undefined ? slotRemaining[chosenSlot] : 999;
-        if (guests > remaining) {
-          showMsg('⚠️ The selected slot only has ' + remaining + ' spots left but you entered ' + guests + ' guests.', false); return;
-        }
+        const chosenSlot = checkedSlot.value, guests = parseInt(guestsInput.value) || 0;
+        const remaining = slotRemaining[chosenSlot] !== undefined ? slotRemaining[chosenSlot] : 999;
+        if (guests > remaining) { showMsg('⚠️ The selected slot only has ' + remaining + ' spots left.', false); return; }
       }
-
-      submitBtn.disabled    = true;
-      submitBtn.textContent = 'Submitting…';
-
+      submitBtn.disabled = true; submitBtn.textContent = 'Submitting…';
       try {
         const res = await fetch('booking_submit.php', { method: 'POST', body: new FormData(form) });
         const raw = await res.text();
-
-        let json;
-        try { json = JSON.parse(raw); }
-        catch (e) {
-          console.error('booking_submit non-JSON:', raw.substring(0, 300));
-          showMsg('❌ Server error. Please try again.', false); return;
-        }
-
+        let json; try { json = JSON.parse(raw); } catch (e) { showMsg('❌ Server error. Please try again.', false); return; }
         if (json.success) {
           showMsg('✅ Booking submitted! Your ticket: ' + json.ticket + '. Slot: ' + json.slot + ' on ' + json.date + '. We\'ll contact you to confirm.', true);
-          form.reset();
-          selectedDate  = '';
-          slotRemaining = {};
-          dateInput.value              = '';
-          selectedLabel.style.display  = 'none';
-          guestWarning.style.display   = 'none';
-          capacityBanner.style.display = 'none';
+          form.reset(); selectedDate = ''; slotRemaining = {}; dateInput.value = ''; selectedLabel.style.display = 'none';
+          guestWarning.style.display = 'none'; capacityBanner.style.display = 'none';
           SLOTS.forEach(slot => {
             const card = document.getElementById('slot' + cap(slot));
             card.classList.remove('selected','available','taken','over-capacity');
-            card.querySelector('input').disabled = true;
-            card.querySelector('input').checked  = false;
+            card.querySelector('input').disabled = true; card.querySelector('input').checked = false;
             document.getElementById('status' + cap(slot)).textContent = 'Select a date first';
           });
           document.querySelectorAll('.avail-day.selected-day').forEach(c => c.classList.remove('selected-day'));
           loadCalendar(calYear, calMonth);
-        } else {
-          showMsg('❌ ' + (json.message || 'Something went wrong.'), false);
-        }
-      } catch (err) {
-        console.error('Submit error:', err);
-        showMsg('❌ Network error. Please try again.', false);
-      } finally {
-        submitBtn.disabled    = false;
-        submitBtn.textContent = 'Submit Booking';
-      }
+        } else { showMsg('❌ ' + (json.message || 'Something went wrong.'), false); }
+      } catch (err) { showMsg('❌ Network error. Please try again.', false); }
+      finally { submitBtn.disabled = false; submitBtn.textContent = 'Submit Booking'; }
     });
 
-    // ── SCROLL EFFECT ─────────────────────────────────────────────────────────
     window.addEventListener('scroll', function () {
       const header = document.querySelector('.glass-header');
       if (header) header.classList.toggle('scrolled', window.scrollY > 50);
     });
 
-    // ── INIT ──────────────────────────────────────────────────────────────────
     loadCalendar(calYear, calMonth);
-
   });
   </script>
 

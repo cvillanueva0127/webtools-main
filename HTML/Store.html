@@ -6,7 +6,7 @@
     <title>Cubiertos Food Hub</title>
 
     <link rel="stylesheet" href="../CSS/Store.css" />
-       <link rel="icon" type="image/jpg" href="../IMAGES/logo.jpg">
+    <link rel="icon" type="image/jpg" href="../IMAGES/logo.jpg" />
 
     <link
       href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Poppins:wght@400;600;700&display=swap"
@@ -27,7 +27,7 @@
         </a>
 
         <nav class="navbar">
-          <a href="../HTML/main.html">Home</a>
+          <a href="../HTML/main.php">Home</a>
           <a href="../HTML/about.html">About</a>
           <a href="../HTML/Store.html" class="active">Stores</a>
           <a href="../HTML/contacts.html">Contacts</a>
@@ -260,7 +260,6 @@
       </div>
       <div class="footer-bottom">
         <span>© 2025 Cubiertos.food.hub — All rights reserved.</span>
-      
       </div>
     </footer>
 
@@ -270,21 +269,21 @@
         header.classList.toggle("scrolled", window.scrollY > 50);
       });
 
-        // Header Scroll Effect
-  window.addEventListener("scroll", function () {
-    const header = document.querySelector(".glass-header"); 
-    if(header){
-      header.classList.toggle("scrolled", window.scrollY > 50);
-    }
-  });
+      // Header Scroll Effect
+      window.addEventListener("scroll", function () {
+        const header = document.querySelector(".glass-header");
+        if (header) {
+          header.classList.toggle("scrolled", window.scrollY > 50);
+        }
+      });
 
-  // Mobile Menu Toggle
-  const menuToggle = document.getElementById("menuToggle");
-  const navbar = document.querySelector(".navbar");
+      // Mobile Menu Toggle
+      const menuToggle = document.getElementById("menuToggle");
+      const navbar = document.querySelector(".navbar");
 
-  menuToggle.addEventListener("click", () => {
-    navbar.classList.toggle("show");
-  });
+      menuToggle.addEventListener("click", () => {
+        navbar.classList.toggle("show");
+      });
     </script>
   </body>
 </html>
