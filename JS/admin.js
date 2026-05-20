@@ -1,7 +1,7 @@
 // ================= GLOBAL STATE =================
 let orders         = [];
 let upcomingEvents = [];
-let notificationHistory = [];
+let notificationHistory = JSON.parse(sessionStorage.getItem("notifHistory") || "[]");
 
 const ordersTable = document.querySelector("#ordersTable tbody");
 
@@ -13,7 +13,7 @@ async function fetchOrders() {
 
     if (data.success) {
       orders         = data.bookings       || [];
-      upcomingEvents = data.upcomingEvents || [];  // ← Don't fall back to orders
+      upcomingEvents = data.upcomingEvents || [];
 
       loadOrders();
       renderUpcomingEvents();
@@ -315,12 +315,10 @@ function parseBookingDate(str) {
 }
 
 // ================= UPCOMING EVENTS PANEL =================
-
 function renderUpcomingEvents() {
   const container = document.getElementById("upcomingEventsContainer");
   if (!container) return;
 
-  // Debug: log what we received
   console.log("upcomingEvents received:", upcomingEvents);
 
   const upcoming = upcomingEvents
@@ -328,7 +326,7 @@ function renderUpcomingEvents() {
       if (!o.booking_datetime) return false;
       if (o.status === "Completed" || o.status === "Cancelled") return false;
       const dt = parseBookingDate(o.booking_datetime);
-      return dt !== null;  // Show all valid datetimes from server
+      return dt !== null;
     })
     .sort((a, b) => parseBookingDate(a.booking_datetime) - parseBookingDate(b.booking_datetime));
 
@@ -419,7 +417,6 @@ function renderUpcomingEvents() {
 }
 
 // ================= EVENT NOTIFICATIONS =================
-
 function checkEventNotifications() {
   const now = new Date();
 
@@ -430,15 +427,31 @@ function checkEventNotifications() {
     const dt       = parseBookingDate(order.booking_datetime);
     if (!dt) return;
     const diffMins = (dt - now) / 60000;
-    const key30    = `notif-30-${order.id}`;
-    const key0     = `notif-0-${order.id}`;
-    const keyDone  = `notif-done-${order.id}`;
+
+    // --- FIX: Notify immediately for every new Pending booking ---
+    const keyNew = `notif-new-${order.id}`;
+    if (order.status === "Pending" && !notificationHistory.includes(keyNew)) {
+      notificationHistory.push(keyNew);
+      sessionStorage.setItem("notifHistory", JSON.stringify(notificationHistory));
+      addNotification({
+        type:    "info",
+        icon:    "🗓️",
+        title:   "New Booking Request",
+        message: `${order.name} — ${order.occasion || "booking"} on ${dt.toLocaleDateString("en-PH", { month: "short", day: "numeric" })}`,
+        orderId: order.id,
+      });
+    }
+
+    const key30   = `notif-30-${order.id}`;
+    const key0    = `notif-0-${order.id}`;
+    const keyDone = `notif-done-${order.id}`;
 
     if (diffMins > 0 && diffMins <= 30 && !notificationHistory.includes(key30)) {
       notificationHistory.push(key30);
+      sessionStorage.setItem("notifHistory", JSON.stringify(notificationHistory));
       addNotification({
         type:    "warning",
-        icon:    "",
+        icon:    "⏰",
         title:   "Event Starting Soon",
         message: `${order.name}'s ${order.occasion || "booking"} starts in ~${Math.round(diffMins)} min`,
         orderId: order.id,
@@ -447,9 +460,10 @@ function checkEventNotifications() {
 
     if (diffMins >= -5 && diffMins <= 5 && !notificationHistory.includes(key0)) {
       notificationHistory.push(key0);
+      sessionStorage.setItem("notifHistory", JSON.stringify(notificationHistory));
       addNotification({
         type:    "info",
-        icon:    "",
+        icon:    "🎉",
         title:   "Event Starting Now",
         message: `${order.name}'s ${order.occasion || "event"} is beginning now!`,
         orderId: order.id,
@@ -458,9 +472,10 @@ function checkEventNotifications() {
 
     if (diffMins <= -60 && order.status === "Approved" && !notificationHistory.includes(keyDone)) {
       notificationHistory.push(keyDone);
+      sessionStorage.setItem("notifHistory", JSON.stringify(notificationHistory));
       addNotification({
         type:    "success",
-        icon:    "",
+        icon:    "✅",
         title:   "Event Likely Finished",
         message: `${order.name}'s event may have ended. Mark as Completed?`,
         orderId: order.id,
@@ -490,7 +505,7 @@ function addNotification({ type, icon, title, message, orderId, action }) {
       <div class="notif-time">${new Date().toLocaleTimeString("en-PH", { hour: "2-digit", minute: "2-digit" })}</div>
       ${action ? `<button class="notif-action-btn">${action.label}</button>` : ""}
     </div>
-    <button class="notif-dismiss" onclick="dismissNotif(this)" title="Dismiss">x</button>
+    <button class="notif-dismiss" onclick="dismissNotif(this)" title="Dismiss">✕</button>
   `;
 
   if (action) {
@@ -526,11 +541,14 @@ window.dismissNotif = function (btn) {
   }
 };
 
+// --- FIX: clearAllNotifications also resets sessionStorage ---
 window.clearAllNotifications = function () {
   const panel = document.getElementById("notifList");
   if (!panel) return;
   panel.innerHTML = `<div class="notif-placeholder">No new notifications</div>`;
   notifCount = 0;
+  notificationHistory = [];
+  sessionStorage.removeItem("notifHistory");
   updateNotifBadge(0);
 };
 
@@ -543,7 +561,7 @@ function showEventToast({ type, icon, title, message }) {
       <strong>${title}</strong>
       <span>${message}</span>
     </div>
-    <button onclick="this.parentElement.remove()">x</button>
+    <button onclick="this.parentElement.remove()">✕</button>
   `;
   document.body.appendChild(toast);
   setTimeout(() => {
@@ -552,7 +570,9 @@ function showEventToast({ type, icon, title, message }) {
   }, 6000);
 }
 
-window.toggleNotifPanel = function () {
+// --- FIX: toggleNotifPanel accepts event to stop propagation ---
+window.toggleNotifPanel = function (e) {
+  if (e) e.stopPropagation();
   const panel = document.getElementById("notifDropdown");
   if (!panel) return;
   panel.classList.toggle("open");
@@ -564,10 +584,17 @@ window.toggleEventsPanel = function () {
   panel.classList.toggle("collapsed");
 };
 
+// --- FIX: close notif panel only when clicking truly outside bell + dropdown ---
 document.addEventListener("click", function (e) {
   const dropdown = document.getElementById("notifDropdown");
   const bell     = document.getElementById("notifBell");
-  if (dropdown && !dropdown.contains(e.target) && bell && !bell.contains(e.target)) {
+  if (
+    dropdown &&
+    dropdown.classList.contains("open") &&
+    !dropdown.contains(e.target) &&
+    bell &&
+    !bell.contains(e.target)
+  ) {
     dropdown.classList.remove("open");
   }
 });

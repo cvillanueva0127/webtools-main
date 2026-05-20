@@ -100,8 +100,8 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] != 'admin'){
       <div class="section-search-dropdown" id="sectionDropdown"></div>
     </div>
 
-    <!-- NOTIFICATION BELL -->
-    <div class="notif-bell-wrap" id="notifBell" onclick="toggleNotifPanel()">
+    <!-- NOTIFICATION BELL — FIX: pass event to toggleNotifPanel -->
+    <div class="notif-bell-wrap" id="notifBell" onclick="toggleNotifPanel(event)">
       <button class="notif-bell-btn" title="Notifications">
         🔔
       </button>
@@ -118,7 +118,6 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] != 'admin'){
       </div>
     </div>
 
- 
     <a href="logout.php" class="btn logout">Logout</a>
 
   </nav>
@@ -370,16 +369,13 @@ function jumpToSection(id) {
   const el = document.getElementById(id);
   if (!el) return;
 
-  // Highlight the target briefly
   el.style.transition = "outline 0.2s";
   el.style.outline = "2px solid var(--brand)";
   el.style.borderRadius = "var(--r-md)";
   setTimeout(() => { el.style.outline = "none"; }, 1800);
 
-  // Scroll into view
   el.scrollIntoView({ behavior: "smooth", block: "start" });
 
-  // Close dropdown
   sectionDropdown.classList.remove("open");
   sectionInput.value = "";
 }
