@@ -660,3 +660,45 @@ async function loadSpecialNotes() {
 document.getElementById("searchNotes")?.addEventListener("input", loadSpecialNotes);
 loadSpecialNotes();
 setInterval(loadSpecialNotes, 30000);
+
+// ================= COMBINED CLEANUP =================
+async function cleanupAll() {
+    const confirmed = confirm(
+        "⚠️ This will permanently delete ALL cancelled bookings.\n\nThis cannot be undone. Continue?"
+    );
+    if (!confirmed) return;
+
+    try {
+        const cancelledRes  = await fetch("cleanup_old_bookings.php?action=delete_cancelled");
+        const cancelledData = await cancelledRes.json();
+
+        if (cancelledData.success) {
+            showActionToast(
+                `🗑 ${cancelledData.deleted} cancelled booking(s) permanently deleted.`,
+                cancelledData.deleted > 0 ? "success" : "info"
+            );
+            orders = [];
+            await fetchOrders();
+        } else {
+            showActionToast("❌ Failed to delete cancelled bookings.", "warning");
+        }
+
+    } catch (err) {
+        console.warn("Cleanup error:", err);
+        showActionToast("❌ Connection error during cleanup.", "warning");
+    }
+}
+
+// ── AUTO CLEANUP: runs silently once per session (30-day old records only) ──
+if (!sessionStorage.getItem("cleanupDone")) {
+    sessionStorage.setItem("cleanupDone", "true");
+    fetch("cleanup_old_bookings.php?action=auto")
+        .then(r => r.json())
+        .then(data => {
+            if (data.deleted > 0) {
+                console.log(`Auto-cleanup: ${data.deleted} old record(s) removed.`);
+                fetchOrders();
+            }
+        })
+        .catch(err => console.warn("Auto-cleanup error:", err));
+}

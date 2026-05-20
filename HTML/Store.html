@@ -6,7 +6,8 @@
     <title>Cubiertos Food Hub</title>
 
     <link rel="stylesheet" href="../CSS/Store.css" />
-    <link rel="icon" type="image/jpg" href="/IMAGES/logo.jpg" />
+       <link rel="icon" type="image/jpg" href="../IMAGES/logo.jpg">
+
     <link
       href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Poppins:wght@400;600;700&display=swap"
       rel="stylesheet"
@@ -81,7 +82,7 @@
 
     <section class="why-section">
       <div class="why-left">
-        <img src="../IMAGES/relaxed.jpg" />
+        <img src="../IMAGES/restobg.jpg" />
       </div>
 
       <div class="why-right">
@@ -271,7 +272,7 @@
 
         // Header Scroll Effect
   window.addEventListener("scroll", function () {
-    const header = document.querySelector(".glass-header");
+    const header = document.querySelector(".glass-header"); 
     if(header){
       header.classList.toggle("scrolled", window.scrollY > 50);
     }

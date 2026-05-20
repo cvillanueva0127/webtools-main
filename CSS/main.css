@@ -694,6 +694,8 @@ body::before {
   width: 100%;
   height: 260px;
   object-fit: cover;
+  object-position: center;
+  image-rendering: auto;
 }
 
 .card h3 {
@@ -874,7 +876,7 @@ body::before {
    FOOTER  (matches menu.html style)
 ========================= */
 footer {
-  background: linear-gradient(90deg, #24380f 0%, #4f6420 100%);
+   background:#283618; 
   padding: 56px 80px 36px;
   color: rgba(255, 255, 255, 0.55);
   margin-top: 0;

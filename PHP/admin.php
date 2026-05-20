@@ -208,6 +208,9 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] != 'admin'){
         <div class="search-box">
           <input type="text" id="searchOrder" placeholder="Search customer name…">
         </div>
+       <button onclick="cleanupAll()" class="btn" style="background:#c0392b;color:white;">
+  Clean Up Records
+</button>
 
         <div class="filter-box">
           <select id="filterStatus">
