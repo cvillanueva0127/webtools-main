@@ -33,9 +33,9 @@ $isLoggedIn = isset($_SESSION['user_id']);
 
         <nav class="navbar">
           <a href="../HTML/main.php" class="active">Home</a>
-          <a href="../HTML/about.html">About</a>
-          <a href="../HTML/Store.html">Stores</a>
-          <a href="../HTML/contacts.html">Contacts</a>
+          <a href="../HTML/about.php">About</a>
+          <a href="../HTML/Store.php">Stores</a>
+          <a href="../HTML/contacts.php">Contacts</a>
         </nav>
 
         <?php if ($isLoggedIn): ?>
@@ -103,7 +103,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
             <span>CHEF'S SPECIAL</span>
             <h2>Try our new Creamy Pasta</h2>
             <p>A rich and flavorful twist on a classic favorite.</p>
-            <a href="menu.html" class="promo-btn">See Menu</a>
+            <a href="menu.php" class="promo-btn">See Menu</a>
           </div>
         </div>
 
@@ -164,7 +164,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
 
         <div class="menu-prompt">
           <h2>Ready to taste the difference? Our menu is waiting.</h2>
-          <a href="menu.html" class="menu-btn">OUR MENU</a>
+          <a href="menu.php" class="menu-btn">OUR MENU</a>
         </div>
       </div>
     </section>
@@ -276,9 +276,9 @@ $isLoggedIn = isset($_SESSION['user_id']);
         </div>
         <div class="footer-links">
           <a href="../HTML/main.php">Home</a>
-          <a href="../HTML/about.html">About</a>
-          <a href="../HTML/Store.html">Our Stores</a>
-          <a href="../HTML/contacts.html">Contacts</a>
+          <a href="../HTML/about.php">About</a>
+          <a href="../HTML/Store.php">Our Stores</a>
+          <a href="../HTML/contacts.php">Contacts</a>
           <?php if ($isLoggedIn): ?>
             <a href="../PHP/profile.php">Profile</a>
           <?php else: ?>
