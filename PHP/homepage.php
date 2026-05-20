@@ -31,11 +31,7 @@ include("connect.php");
     </div>
   </header>
 
-  <div class="socials">
-    <a href="#"><img src="../IMAGES/Facebook.png" alt="Facebook"></a>
-    <a href="#"><img src="../IMAGES/Instagram.png" alt="Instagram"></a>
-    <a href="#"><img src="../IMAGES/Mail.png" alt="YouTube"></a>
-  </div>
+
 
   <section class="mainpage">
     <div class="mainpage-context">
