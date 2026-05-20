@@ -108,12 +108,12 @@ $isLoggedIn = isset($_SESSION['user_id']);
         </div>
 
         <div class="mySlides" style="display: none">
-          <img src="../IMAGES/slide3.png" alt="Slide 3" />
+          <img src="../IMAGES/burger.png" alt="Slide 3" />
           <div class="menu-promo-overlay">
             <span>MUST TRY</span>
             <h2>The Ultimate Burger Combo</h2>
             <p>Served with perfectly seasoned fries.</p>
-            <a href="menu.html" class="promo-btn">See Menu</a>
+            <a href="menu.php" class="promo-btn">See Menu</a>
           </div>
         </div>
 
@@ -122,7 +122,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
           <div class="menu-promo-overlay">
             <h2>Pasta, Sandwich Wrap & Green Drink</h2>
             <p>A satisfying full meal — baked pasta, a fresh sandwich wrap, toasted bread, and a cool refreshing green drink.</p>
-            <a href="menu.html" class="promo-btn">See Menu</a>
+            <a href="menu.php" class="promo-btn">See Menu</a>
           </div>
         </div>
 
@@ -131,7 +131,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
           <div class="menu-promo-overlay">
             <h2>Carbonara, Pesto Penne & Potato Mojos</h2>
             <p>Creamy carbonara topped with a sunny-side egg, herby pesto penne, crispy potato mojos, and warm garlic bread.</p>
-            <a href="menu.html" class="promo-btn">See Menu</a>
+            <a href="menu.php" class="promo-btn">See Menu</a>
           </div>
         </div>
 
@@ -140,7 +140,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
           <div class="menu-promo-overlay">
             <h2>Baked Pasta, Creamy Mushroom & Iced Drink</h2>
             <p>Rich baked pasta in tomato sauce, a creamy mushroom dish, toasted bread, and a sweet strawberry iced drink.</p>
-            <a href="menu.html" class="promo-btn">See Menu</a>
+            <a href="menu.php" class="promo-btn">See Menu</a>
           </div>
         </div>
 
@@ -158,7 +158,7 @@ $isLoggedIn = isset($_SESSION['user_id']);
           <div class="menu-promo-overlay">
             <h2>Crispy Fries, Fried Chicken & Onion Rings</h2>
             <p>Golden seasoned fries, crispy fried chicken, crunchy onion rings, and a creamy dipping sauce on the side.</p>
-            <a href="menu.html" class="promo-btn">See Menu</a>
+            <a href="menu.php" class="promo-btn">See Menu</a>
           </div>
         </div>
 

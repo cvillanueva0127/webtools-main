@@ -328,7 +328,6 @@
       .food-card:hover .card-img-wrap img {
         transform: scale(1.08);
       }
-
       .card-badge {
         position: absolute;
         top: 16px;
@@ -343,7 +342,6 @@
         padding: 6px 14px;
         border-radius: 30px;
       }
-
       .card-body {
         padding: 25px;
         display: flex;
@@ -542,13 +540,13 @@
             <span>FOOD HUB</span>
           </div>
         </a>
-        <nav class="navbar">
-          <a href="../HTML/main.html">Home</a>
-          <a href="../HTML/about.html">About</a>
-          <a href="../HTML/Store.html">Stores</a>
-          <a href="../HTML/contacts.html">Contacts</a>
+        <nav class="navbar" id="navbar">
+          <a href="../HTML/main.php">Home</a>
+          <a href="../HTML/about.php">About</a>
+          <a href="../HTML/Store.php">Stores</a>
+          <a href="../HTML/contacts.php">Contacts</a>
         </nav>
-        <a href="../HTML/login.html" class="login-btn">Log in</a>
+      
         <div class="menu-toggle" id="menuToggle">☰</div>
       </div>
     </header>
@@ -557,16 +555,18 @@
       <a
         href="https://www.facebook.com/profile.php?id=61555258696901"
         target="_blank"
-        ><img src="../IMAGES/Facebook.png" alt="Facebook"
-      /></a>
-      <a href="https://www.instagram.com/cubiertos2024/" target="_blank"
-        ><img src="../IMAGES/Instagram.png" alt="Instagram"
-      /></a>
+      >
+        <img src="../IMAGES/Facebook.png" alt="Facebook" />
+      </a>
+      <a href="https://www.instagram.com/cubiertos2024/" target="_blank">
+        <img src="../IMAGES/Instagram.png" alt="Instagram" />
+      </a>
       <a
         href="https://mail.google.com/mail/u/0/#inbox?compose=new"
         target="_blank"
-        ><img src="../IMAGES/Mail.png" alt="Mail"
-      /></a>
+      >
+        <img src="../IMAGES/Mail.png" alt="Mail" />
+      </a>
     </div>
 
     <section class="hero">
@@ -579,7 +579,7 @@
           Garden-fresh salads tossed with house-made dressings — light, bold,
           and packed with flavour.
         </p>
-        <a href="menu.html" class="back-pill">&larr; Back to Menu</a>
+        <a href="menu.php" class="back-pill">&larr; Back to Menu</a>
       </div>
     </section>
 
@@ -589,37 +589,8 @@
           <p class="section-label">Fresh &amp; Crisp</p>
           <h2 class="section-title">Choose your<br /><em>salad</em></h2>
         </div>
-        <p class="item-count"><strong>3</strong> items available</p>
+        <p class="item-count"><strong>6</strong> items available</p>
       </div>
-
-      <div class="items-grid">
-        <div class="food-card">
-          <div class="card-img-wrap">
-            <img src="../IMAGES/salad.jpg" alt="Classic Garden Salad" />
-            <span class="card-badge">Fresh Pick</span>
-          </div>
-          <div class="card-body">
-            <h3 class="card-name">Classic Garden Salad</h3>
-            <p class="card-desc">
-              A refreshing mix of romaine lettuce, cherry tomatoes, cucumbers,
-              and red onion tossed in our signature vinaigrette.
-            </p>
-          </div>
-        </div>
-
-        <div class="food-card">
-          <div class="card-img-wrap">
-            <img src="../IMAGES/salad.jpg" alt="Caesar Salad" />
-            <span class="card-badge">Best Seller</span>
-          </div>
-          <div class="card-body">
-            <h3 class="card-name">Caesar Salad</h3>
-            <p class="card-desc">
-              Crisp romaine lettuce with house-made Caesar dressing, parmesan
-              shavings, and golden croutons.
-            </p>
-          </div>
-        </div>
 
         <div class="food-card">
           <div class="card-img-wrap">
@@ -634,6 +605,48 @@
             <p class="card-desc">
               Tender grilled chicken breast over mixed greens with bell peppers,
               corn, and honey-mustard dressing.
+            </p>
+          </div>
+        </div>
+
+        <div class="food-card">
+          <div class="card-img-wrap">
+            <img src="../IMAGES/thai.png" alt="Thai Mango Salad" />
+            <span class="card-badge">New</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-name">Thai Mango Salad</h3>
+            <p class="card-desc">
+              Refreshing salad made with shredded green mango, herbs, and a
+              tangy sweet-spicy dressing.
+            </p>
+          </div>
+        </div>
+
+        <div class="food-card">
+          <div class="card-img-wrap">
+            <img src="../IMAGES/gardensalad.png" alt="Cubiertos Garden Salad" />
+            <span class="card-badge">House Special</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-name">Cubiertos Garden Salad</h3>
+            <p class="card-desc">
+              Fresh lettuce, tomatoes, cucumber, and croutons served with our
+              signature creamy dressing.
+            </p>
+          </div>
+        </div>
+
+        <div class="food-card">
+          <div class="card-img-wrap">
+            <img src="../IMAGES/kani manggo roll.jpg" alt="Kani Mango Roll" />
+            <span class="card-badge">Fan Fave</span>
+          </div>
+          <div class="card-body">
+            <h3 class="card-name">Kani Mango Roll</h3>
+            <p class="card-desc">
+              Japanese-inspired roll made with crab stick, mango, and veggies —
+              light and delicious.
             </p>
           </div>
         </div>
@@ -654,7 +667,7 @@
           <a href="../HTML/Store.html">Our Stores</a>
           <a href="menu.html">Menu</a>
           <a href="../HTML/contacts.html">Contacts</a>
-          <a href="../HTML/login.html">Log in</a>
+          
         </div>
         <div class="footer-contact">
           <strong>Get in touch</strong>
@@ -667,16 +680,18 @@
           <a
             href="https://www.facebook.com/profile.php?id=61555258696901"
             target="_blank"
-            ><img src="../IMAGES/Facebook.png" alt="Facebook"
-          /></a>
-          <a href="https://www.instagram.com/cubiertos2024/" target="_blank"
-            ><img src="../IMAGES/Instagram.png" alt="Instagram"
-          /></a>
+          >
+            <img src="../IMAGES/Facebook.png" alt="Facebook" />
+          </a>
+          <a href="https://www.instagram.com/cubiertos2024/" target="_blank">
+            <img src="../IMAGES/Instagram.png" alt="Instagram" />
+          </a>
           <a
             href="https://mail.google.com/mail/u/0/#inbox?compose=new"
             target="_blank"
-            ><img src="../IMAGES/Mail.png" alt="Mail"
-          /></a>
+          >
+            <img src="../IMAGES/Mail.png" alt="Mail" />
+          </a>
         </div>
       </div>
     </footer>
@@ -686,6 +701,12 @@
         const header = document.querySelector(".glass-header");
         if (header) header.classList.toggle("scrolled", window.scrollY > 50);
       });
+
+      document
+        .getElementById("menuToggle")
+        .addEventListener("click", function () {
+          document.getElementById("navbar").classList.toggle("show");
+        });
     </script>
   </body>
 </html>
