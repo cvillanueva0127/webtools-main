@@ -174,6 +174,7 @@ content="width=device-width, initial-scale=1.0">
 
 <link rel="stylesheet"
 href="../CSS/adminsamp.css">
+<link rel="icon" type="image/jpg" href="../IMAGES/logo.jpg">
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 

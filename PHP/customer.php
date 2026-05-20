@@ -15,7 +15,7 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] != 'admin'){
 
 <!-- Same stylesheets as admin -->
 <link rel="stylesheet" href="../CSS/adminsamp.css">
-<link rel="icon" type="image/jpg" href="/IMAGES/logo.jpg">
+<link rel="icon" type="image/jpg" href="../IMAGES/logo.jpg">
 <!-- adminsamp.css already imports DM Sans + Syne, but include as fallback -->
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
 

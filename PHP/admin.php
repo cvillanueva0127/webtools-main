@@ -12,7 +12,7 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] != 'admin'){
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cubiertos Admin Dashboard</title>
   <link rel="stylesheet" href="../CSS/adminsamp.css">
-  <link rel="icon" type="image/jpg" href="/IMAGES/logo.jpg">
+  <link rel="icon" type="image/jpg" href="../IMAGES/logo.jpg">
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
 </head>
 

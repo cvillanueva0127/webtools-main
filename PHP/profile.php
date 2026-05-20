@@ -163,6 +163,7 @@ $default_fullname = val($user['full_name'] ?: trim(($user['firstName'] ?? '') . 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile – Cubiertos Food Hub</title>
     <link rel="stylesheet" href="../CSS/profile.css">
+    <link rel="icon" type="image/jpg" href="../IMAGES/logo.jpg">
     <style>
         /* ── AVATAR ── */
         .avatar {

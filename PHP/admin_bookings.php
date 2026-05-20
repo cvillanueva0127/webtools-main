@@ -107,17 +107,17 @@ if ($action === 'list') {
     $today = $todayRes->fetch_assoc();
 
     // ── Upcoming events (next 7 days, Pending or Approved) ─────────
-    $upcomingRes = $conn->query("
-        SELECT
-            id, name, occasion, guests, amount, payment_method,
-            booking_datetime, status, special_notes, phone, email
-        FROM bookings
-        WHERE status IN ('Pending', 'Approved')
-          AND booking_datetime BETWEEN
-                DATE_SUB(NOW(), INTERVAL 3 DAY)
-            AND DATE_ADD(NOW(), INTERVAL 7 DAY)
-        ORDER BY booking_datetime ASC
-    ");
+    // ── Upcoming events (next 7 days, Pending or Approved) ─────────
+$upcomingRes = $conn->query("
+    SELECT
+        id, name, occasion, guests, amount, payment_method,
+        booking_datetime, status, special_notes, phone, email
+    FROM bookings
+    WHERE status IN ('Pending', 'Approved')
+      AND booking_datetime >= DATE_SUB(NOW(), INTERVAL 1 DAY)
+      AND booking_datetime <= DATE_ADD(NOW(), INTERVAL 7 DAY)
+    ORDER BY booking_datetime ASC
+");
     $upcomingEvents = $upcomingRes->fetch_all(MYSQLI_ASSOC);
 
     // ── Daily capacity from settings table ─────────────────────────

@@ -16,7 +16,7 @@ if(!isset($_SESSION['role']) || $_SESSION['role'] != 'admin'){
 
 <link rel="stylesheet" href="../CSS/adminsamp.css">
 <link rel="stylesheet" href="../CSS/report.css">
-<link rel="icon" type="image/jpg" href="/IMAGES/logo.jpg">
+<link rel="icon" type="image/jpg" href="../IMAGES/logo.jpg">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 

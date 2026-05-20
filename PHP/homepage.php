@@ -9,7 +9,7 @@ include("connect.php");
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cubiertos Food Hub Book</title>
   <link rel="stylesheet" href="../CSS/book.css">
-  <link rel="icon" type="image/jpg" href="/IMAGES/logo.jpg">
+  <link rel="icon" type="image/jpg" href="../IMAGES/logo.jpg">
   <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
