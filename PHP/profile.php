@@ -424,7 +424,7 @@ $default_fullname = val($user['full_name'] ?: trim(($user['firstName'] ?? '') . 
                     <div class="field">
                         <div class="field-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
                         <div class="field-body">
-                            <div class="field-label">Delivery address</div>
+                            <div class="field-label">Address</div>
                             <div class="field-value" id="v-addr"><?= ph($user['address'], 'Not set') ?></div>
                             <input class="field-input" id="i-addr" name="address" value="<?= val($user['address']) ?>" placeholder="Street, City, Province" />
                         </div>

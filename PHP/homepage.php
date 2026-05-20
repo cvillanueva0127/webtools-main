@@ -127,16 +127,15 @@ include("connect.php");
           <?php
           $prefill_name = $prefill_email = $prefill_phone = '';
           if (isset($_SESSION['id'])) {
-              try {
-                  $s = $pdo->prepare("SELECT full_name, email, phone FROM users WHERE Id = ?");
-                  $s->execute([$_SESSION['id']]);
-                  $u = $s->fetch();
-                  if ($u) {
-                      $prefill_name  = htmlspecialchars($u['full_name'] ?? '');
-                      $prefill_email = htmlspecialchars($u['email']     ?? '');
-                      $prefill_phone = htmlspecialchars($u['phone']     ?? '');
-                  }
-              } catch (Exception $e) {}
+              $s = $conn->prepare("SELECT full_name, email, phone FROM users WHERE Id = ?");
+              $s->bind_param("i", $_SESSION['id']);
+              $s->execute();
+              $s->bind_result($prefill_name_raw, $prefill_email_raw, $prefill_phone_raw);
+              $s->fetch();
+              $s->close();
+              $prefill_name  = htmlspecialchars($prefill_name_raw  ?? '');
+              $prefill_email = htmlspecialchars($prefill_email_raw ?? '');
+              $prefill_phone = htmlspecialchars($prefill_phone_raw ?? '');
           }
           ?>
           <input type="text" name="name" placeholder="Enter your full name" value="<?= $prefill_name ?>" required>
@@ -144,20 +143,21 @@ include("connect.php");
 
         <!-- EMAIL -->
         <p><i>Email Address</i><br>
-          <input type="email" name="email" placeholder="Enter your email" required>
+          <input type="email" name="email" placeholder="Enter your email" value="<?= $prefill_email ?>" required>
         </p>
 
         <!-- PHONE -->
         <p><i>Phone Number</i><br>
-         <input 
-  type="tel" 
-  name="phone" 
-  id="phone"
-  maxlength="11"
-  pattern="[0-9]{11}"
-  placeholder="09XXXXXXXXX"
-  oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11)"
->
+          <input
+            type="tel"
+            name="phone"
+            id="phone"
+            maxlength="11"
+            pattern="[0-9]{11}"
+            placeholder="09XXXXXXXXX"
+            value="<?= $prefill_phone ?>"
+            oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11)"
+          >
         </p>
 
         <!-- OCCASION -->
@@ -190,9 +190,7 @@ include("connect.php");
           <div class="avail-day-labels">
             <span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
           </div>
-          <div class="avail-grid" id="availGrid">
-            <!-- Rendered by JS -->
-          </div>
+          <div class="avail-grid" id="availGrid"></div>
           <div class="avail-legend">
             <span><i class="legend-dot open"></i> Available</span>
             <span><i class="legend-dot partial"></i> Partially Booked</span>
@@ -256,7 +254,6 @@ include("connect.php");
               <input type="radio" name="payment" value="GCash" required>
               <span class="payment-card">
                 <div class="payment-left">
-                  
                   <div class="payment-info">
                     <h4>GCash</h4>
                     <small>Secure mobile wallet payment for fast reservation confirmation.</small>
@@ -285,7 +282,6 @@ include("connect.php");
               <div class="gcash-layout">
                 <div class="gcash-info-side">
                   <div class="gcash-header">
-              
                     <div>
                       <h4>GCash Reservation Details</h4>
                       <p>Send your reservation payment to:</p>
@@ -315,16 +311,10 @@ include("connect.php");
                   </div>
                   <div class="upload-proof">
                     <label>Upload Payment Screenshot <span class="required">*</span></label>
-                    <input 
-  type="file" 
-  name="proof" 
-  id="proof"
-  accept="image/*"
-  onchange="validateProofSize(this)"
->
-<p id="proofError" style="color:#e74c3c; font-size:0.8rem; display:none;">
-  File exceeds 100MB limit. Please upload a smaller file.
-</p>
+                    <input type="file" name="proof" id="proof" accept="image/*" onchange="validateProofSize(this)">
+                    <p id="proofError" style="color:#e74c3c; font-size:0.8rem; display:none;">
+                      File exceeds 100MB limit. Please upload a smaller file.
+                    </p>
                     <small class="field-hint">Attach a screenshot of your successful GCash transaction</small>
                   </div>
                 </div>
@@ -389,70 +379,29 @@ include("connect.php");
 
   <!-- ================= STYLES ================= -->
   <style>
-    /* ── Availability Calendar ── */
     .avail-calendar-wrap {
-      background: #fff;
-      border-radius: 20px;
-      padding: 22px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
-      margin-bottom: 20px;
+      background: #fff; border-radius: 20px; padding: 22px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07); margin-bottom: 20px;
       border: 1px solid #f0e9df;
     }
-    .avail-cal-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 14px;
-    }
-    .avail-cal-header h4 {
-      font-size: 1rem;
-      color: #283618;
-      margin: 0;
-      font-weight: 700;
-    }
+    .avail-cal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+    .avail-cal-header h4 { font-size: 1rem; color: #283618; margin: 0; font-weight: 700; }
     .avail-cal-nav {
-      background: none;
-      border: 2px solid #e0d9ce;
-      border-radius: 50%;
-      width: 32px; height: 32px;
-      cursor: pointer;
-      font-size: 1.1rem;
-      color: #bc6c25;
-      display: flex; align-items: center; justify-content: center;
-      transition: all 0.2s;
-      line-height: 1;
+      background: none; border: 2px solid #e0d9ce; border-radius: 50%;
+      width: 32px; height: 32px; cursor: pointer; font-size: 1.1rem; color: #bc6c25;
+      display: flex; align-items: center; justify-content: center; transition: all 0.2s; line-height: 1;
     }
     .avail-cal-nav:hover { background: #bc6c25; color: #fff; border-color: #bc6c25; }
-
     .avail-day-labels {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      text-align: center;
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: #aaa;
-      margin-bottom: 6px;
+      display: grid; grid-template-columns: repeat(7, 1fr);
+      text-align: center; font-size: 0.72rem; font-weight: 700; color: #aaa; margin-bottom: 6px;
     }
-    .avail-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 4px;
-    }
+    .avail-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
     .avail-day {
-      aspect-ratio: 1;
-      border-radius: 10px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.82rem;
-      font-weight: 600;
-      cursor: pointer;
-      border: 2px solid transparent;
-      transition: all 0.18s;
-      min-height: 40px;
-      user-select: none;
-      position: relative;
+      aspect-ratio: 1; border-radius: 10px; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; font-size: 0.82rem; font-weight: 600;
+      cursor: pointer; border: 2px solid transparent; transition: all 0.18s;
+      min-height: 40px; user-select: none; position: relative;
     }
     .avail-day.empty   { cursor: default; background: transparent; }
     .avail-day.past    { color: #ccc; cursor: not-allowed; background: #f9f9f9; }
@@ -463,29 +412,17 @@ include("connect.php");
     .avail-day.full    { background: #fce4ec; color: #b71c1c; border-color: #ef9a9a; cursor: not-allowed; }
     .avail-day.selected-day  { outline: 3px solid #bc6c25; outline-offset: 2px; }
     .avail-day.today-ring    { font-weight: 800; text-decoration: underline; }
-
-    .day-dot {
-      width: 5px; height: 5px; border-radius: 50%; margin-top: 2px;
-    }
+    .day-dot { width: 5px; height: 5px; border-radius: 50%; margin-top: 2px; }
     .avail-day.open    .day-dot { background: #2e7d32; }
     .avail-day.partial .day-dot { background: #e65100; }
     .avail-day.full    .day-dot { background: #b71c1c; }
-
-    /* Legend */
-    .avail-legend {
-      display: flex; gap: 14px; flex-wrap: wrap;
-      margin-top: 12px; font-size: 0.76rem; color: #666;
-    }
+    .avail-legend { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 12px; font-size: 0.76rem; color: #666; }
     .avail-legend span { display: flex; align-items: center; gap: 5px; }
-    .legend-dot {
-      width: 10px; height: 10px; border-radius: 50%; display: inline-block;
-    }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
     .legend-dot.open    { background: #2e7d32; }
     .legend-dot.partial { background: #e65100; }
     .legend-dot.full    { background: #b71c1c; }
     .legend-dot.past    { background: #ccc; }
-
-    /* ── Slot Cards ── */
     .slot-section { margin-bottom: 20px; }
     .slot-section i { display: block; margin-bottom: 10px; font-style: normal; font-weight: 600; color: #283618; }
     .slot-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
@@ -498,10 +435,7 @@ include("connect.php");
     .slot-card:hover:not(.taken):not(.over-capacity) { border-color: #bc6c25; background: #fff8f3; }
     .slot-card.selected  { border-color: #bc6c25; background: #fff3e8; box-shadow: 0 4px 12px rgba(188,108,37,0.15); }
     .slot-card.taken     { opacity: 0.5; cursor: not-allowed; background: #f5f5f5; }
-    .slot-card.over-capacity {
-      opacity: 0.65; cursor: not-allowed;
-      background: #fff0f0; border-color: #ffcccc;
-    }
+    .slot-card.over-capacity { opacity: 0.65; cursor: not-allowed; background: #fff0f0; border-color: #ffcccc; }
     .slot-icon  { font-size: 1.8rem; margin-bottom: 6px; }
     .slot-label { font-weight: 700; color: #283618; font-size: 0.95rem; }
     .slot-time  { color: #bc6c25; font-size: 0.85rem; font-weight: 600; margin: 2px 0 6px; }
@@ -509,74 +443,60 @@ include("connect.php");
     .slot-card.taken .slot-status         { color: #e74c3c; }
     .slot-card.available .slot-status     { color: #27ae60; }
     .slot-card.over-capacity .slot-status { color: #e74c3c; font-weight: 700; }
-
-    /* ── Guest Warning ── */
     #guestWarning {
-      display: none;
-      color: #c0392b;
-      font-weight: 600;
-      margin-top: 8px;
-      padding: 10px 14px;
-      background: #fce4ec;
-      border-radius: 8px;
-      border-left: 4px solid #e74c3c;
-      font-size: 0.85rem;
+      display: none; color: #c0392b; font-weight: 600; margin-top: 8px;
+      padding: 10px 14px; background: #fce4ec; border-radius: 8px;
+      border-left: 4px solid #e74c3c; font-size: 0.85rem;
     }
-
-    /* ── Capacity Banner ── */
     #capacityBanner {
-      display: none;
-      background: #fff3cd;
-      border: 1px solid #ffc107;
-      border-left: 4px solid #e6a000;
-      border-radius: 10px;
-      padding: 12px 16px;
-      margin-bottom: 12px;
-      font-size: 0.87rem;
-      font-weight: 600;
-      color: #7a4f00;
+      display: none; background: #fff3cd; border: 1px solid #ffc107;
+      border-left: 4px solid #e6a000; border-radius: 10px; padding: 12px 16px;
+      margin-bottom: 12px; font-size: 0.87rem; font-weight: 600; color: #7a4f00;
     }
-
-    /* ── Calendar retry button ── */
     #calRetryBtn {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 8px 18px;
-      background: #bc6c25;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 0.85rem;
-      font-weight: 600;
-      font-family: inherit;
-      transition: background 0.2s;
+      display: inline-block; margin-top: 10px; padding: 8px 18px;
+      background: #bc6c25; color: #fff; border: none; border-radius: 8px;
+      cursor: pointer; font-size: 0.85rem; font-weight: 600; font-family: inherit; transition: background 0.2s;
     }
     #calRetryBtn:hover { background: #a05a1e; }
-
-    @media (max-width: 500px) {
-      .slot-grid { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 500px) { .slot-grid { grid-template-columns: 1fr; } }
   </style>
 
   <!-- ================= JS ================= -->
   <script>
+
+  // ── FIX 1: cap() helper — capitalises first letter (was missing, broke everything) ──
+  function cap(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  // ── FIX 2: validateProofSize() — was called in HTML but never defined ──
+  function validateProofSize(input) {
+    const maxSize  = 100 * 1024 * 1024; // 100 MB
+    const errEl    = document.getElementById('proofError');
+    if (input.files[0] && input.files[0].size > maxSize) {
+      errEl.style.display = 'block';
+      input.value = '';
+    } else {
+      errEl.style.display = 'none';
+    }
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
 
-    const form           = document.getElementById("bookingForm");
-    const msgBox         = document.getElementById("formMessage");
-    const submitBtn      = document.getElementById("submitBtn");
-    const dateInput      = document.getElementById("dateInput");
-    const guestsInput    = document.getElementById("guestsInput");
-    const guestWarning   = document.getElementById("guestWarning");
-    const selectedLabel  = document.getElementById("selectedDateLabel");
-    const selectedText   = document.getElementById("selectedDateText");
+    const form          = document.getElementById("bookingForm");
+    const msgBox        = document.getElementById("formMessage");
+    const submitBtn     = document.getElementById("submitBtn");
+    const dateInput     = document.getElementById("dateInput");
+    const guestsInput   = document.getElementById("guestsInput");
+    const guestWarning  = document.getElementById("guestWarning");
+    const selectedLabel = document.getElementById("selectedDateLabel");
+    const selectedText  = document.getElementById("selectedDateText");
 
     const SLOTS = ['morning', 'afternoon', 'evening'];
 
-    // ── State ─────────────────────────────────────────────────────────────────
     let calYear       = new Date().getFullYear();
-    let calMonth      = new Date().getMonth() + 1;   // 1–12
+    let calMonth      = new Date().getMonth() + 1;
     let availability  = {};
     let selectedDate  = '';
     let slotRemaining = {};
@@ -588,7 +508,6 @@ include("connect.php");
     slotSection.insertBefore(capacityBanner, slotSection.querySelector('.slot-grid'));
 
     // ── CALENDAR ──────────────────────────────────────────────────────────────
-
     async function loadCalendar(year, month) {
       const label = document.getElementById('calMonthLabel');
       const grid  = document.getElementById('availGrid');
@@ -597,27 +516,18 @@ include("connect.php");
       grid.innerHTML    = '<div style="grid-column:1/-1;text-align:center;color:#aaa;padding:18px;font-size:0.85rem;">Fetching availability…</div>';
 
       try {
-        // ── FIX: use absolute path so it always resolves correctly ────────────
         const res = await fetch('get_calendar_availability.php?year=' + year + '&month=' + month, {
-          method: 'GET',
-          headers: { 'Accept': 'application/json' },
-          cache: 'no-cache'
+          method: 'GET', headers: { 'Accept': 'application/json' }, cache: 'no-cache'
         });
 
-        // Check HTTP status first
-        if (!res.ok) {
-          throw new Error('HTTP ' + res.status);
-        }
+        if (!res.ok) throw new Error('HTTP ' + res.status);
 
-        // Read raw text first so we can diagnose non-JSON responses
         const raw = await res.text();
-
         let data;
         try {
           data = JSON.parse(raw);
         } catch (parseErr) {
-          // PHP is sending HTML/errors — log it and show friendly message
-          console.error('Calendar response was not valid JSON:', raw.substring(0, 300));
+          console.error('Calendar non-JSON response:', raw.substring(0, 300));
           throw new Error('Invalid response from server');
         }
 
@@ -627,7 +537,6 @@ include("connect.php");
         } else {
           showCalError(label, grid, data.message || 'Could not load availability.');
         }
-
       } catch (e) {
         console.error('Calendar fetch error:', e.message);
         showCalError(label, grid, 'Could not load availability. Please refresh.');
@@ -638,16 +547,12 @@ include("connect.php");
       label.textContent = 'Failed to load';
       grid.innerHTML = `
         <div style="grid-column:1/-1;text-align:center;color:#e74c3c;padding:18px;font-size:0.85rem;">
-          ⚠️ ${message}
-          <br>
+          ⚠️ ${message}<br>
           <button id="calRetryBtn" onclick="retryCalendar()">🔄 Retry</button>
         </div>`;
     }
 
-    // Exposed globally so the inline onclick works
-    window.retryCalendar = function() {
-      loadCalendar(calYear, calMonth);
-    };
+    window.retryCalendar = function () { loadCalendar(calYear, calMonth); };
 
     function renderCalendar(year, month) {
       const monthNames = ['January','February','March','April','May','June',
@@ -693,8 +598,7 @@ include("connect.php");
     }
 
     function selectDate(dateStr, cell) {
-      document.querySelectorAll('.avail-day.selected-day')
-        .forEach(c => c.classList.remove('selected-day'));
+      document.querySelectorAll('.avail-day.selected-day').forEach(c => c.classList.remove('selected-day'));
       cell.classList.add('selected-day');
 
       selectedDate    = dateStr;
@@ -710,7 +614,6 @@ include("connect.php");
     }
 
     // ── SLOT CHECKING ─────────────────────────────────────────────────────────
-
     async function checkAllSlots(date) {
       slotRemaining = {};
 
@@ -745,10 +648,9 @@ include("connect.php");
 
         const raw = await res.text();
         let json;
-        try {
-          json = JSON.parse(raw);
-        } catch (e) {
-          console.error('Slot check non-JSON response:', raw.substring(0, 200));
+        try { json = JSON.parse(raw); }
+        catch (e) {
+          console.error('Slot check non-JSON:', raw.substring(0, 200));
           throw new Error('Invalid slot response');
         }
 
@@ -769,14 +671,13 @@ include("connect.php");
         }
       } catch (e) {
         console.error('fetchSlotStatus error for', slot, ':', e.message);
-        slotRemaining[slot] = 999;   // fail-safe: let user try
+        slotRemaining[slot] = 999;
         radio.disabled      = false;
         status.textContent  = 'Status unknown';
       }
     }
 
     // ── GUEST CAPACITY VALIDATION ─────────────────────────────────────────────
-
     function applyGuestCapacityCheck() {
       const guests = parseInt(guestsInput.value) || 0;
 
@@ -806,7 +707,6 @@ include("connect.php");
 
         if (!isTaken) {
           const remaining = slotRemaining[slot] !== undefined ? slotRemaining[slot] : 999;
-
           if (guests > remaining) {
             card.classList.add('over-capacity');
             radio.disabled = true;
@@ -823,10 +723,10 @@ include("connect.php");
       });
 
       if (anyExceedsCapacity) {
-        guestWarning.style.display = 'block';
-        guestWarning.textContent   = '⚠️ Your guest count (' + guests + ') exceeds the remaining capacity for one or more time slots. Please lower the number of guests or choose a different date.';
+        guestWarning.style.display   = 'block';
+        guestWarning.textContent     = '⚠️ Your guest count (' + guests + ') exceeds the remaining capacity for one or more time slots.';
         capacityBanner.style.display = 'block';
-        capacityBanner.innerHTML     = '⚠️ Some slots below can\'t accommodate <strong>' + guests + ' guests</strong>. Reduce your guest count or pick a date with more availability.';
+        capacityBanner.innerHTML     = '⚠️ Some slots can\'t accommodate <strong>' + guests + ' guests</strong>. Reduce guests or pick another date.';
       } else {
         guestWarning.style.display   = 'none';
         capacityBanner.style.display = 'none';
@@ -846,8 +746,7 @@ include("connect.php");
     document.querySelectorAll('.slot-card').forEach(card => {
       card.addEventListener('click', function (e) {
         if (this.classList.contains('taken') || this.classList.contains('over-capacity')) {
-          e.preventDefault();
-          e.stopPropagation();
+          e.preventDefault(); e.stopPropagation();
         }
       });
     });
@@ -888,38 +787,40 @@ include("connect.php");
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
 
+      // ── FIX 3: All validation checks in correct order, no dead code ──
+
       if (!dateInput.value) {
         showMsg('⚠️ Please select a date from the calendar.', false); return;
       }
+
       if (!form.querySelector('input[name="slot"]:checked')) {
         showMsg('⚠️ Please select a time slot.', false); return;
       }
+
       if (!form.querySelector('input[name="payment"]:checked')) {
         showMsg('⚠️ Please select a payment method.', false); return;
-        // GCash proof size check on submit
-const proofInput = document.getElementById('proof');
-if (proofInput && proofInput.files[0]) {
-  const maxSize = 100 * 1024 * 1024;
-  if (proofInput.files[0].size > maxSize) {
-    showMsg('⚠️ Payment screenshot exceeds 100MB. Please upload a smaller image.', false);
-    return;
-  }
-}
+      }
+
+      // GCash proof size check (was after a return — now fixed)
+      const proofInput = document.getElementById('proof');
+      if (proofInput && proofInput.files[0]) {
+        const maxSize = 100 * 1024 * 1024;
+        if (proofInput.files[0].size > maxSize) {
+          showMsg('⚠️ Payment screenshot exceeds 100MB. Please upload a smaller image.', false); return;
+        }
       }
 
       if (guestWarning.style.display !== 'none') {
-        showMsg('⚠️ Your guest count exceeds the remaining capacity. Please adjust your guest count or pick another date.', false);
-        return;
+        showMsg('⚠️ Your guest count exceeds the remaining capacity. Please adjust or pick another date.', false); return;
       }
 
       const checkedSlot = form.querySelector('input[name="slot"]:checked');
       if (checkedSlot) {
-        const chosenSlot  = checkedSlot.value;
-        const guests      = parseInt(guestsInput.value) || 0;
-        const remaining   = slotRemaining[chosenSlot] !== undefined ? slotRemaining[chosenSlot] : 999;
+        const chosenSlot = checkedSlot.value;
+        const guests     = parseInt(guestsInput.value) || 0;
+        const remaining  = slotRemaining[chosenSlot] !== undefined ? slotRemaining[chosenSlot] : 999;
         if (guests > remaining) {
-          showMsg('⚠️ The selected slot only has ' + remaining + ' spots left but you entered ' + guests + ' guests.', false);
-          return;
+          showMsg('⚠️ The selected slot only has ' + remaining + ' spots left but you entered ' + guests + ' guests.', false); return;
         }
       }
 
@@ -927,15 +828,14 @@ if (proofInput && proofInput.files[0]) {
       submitBtn.textContent = 'Submitting…';
 
       try {
-        const res  = await fetch('booking_submit.php', { method: 'POST', body: new FormData(form) });
-        const raw  = await res.text();
+        const res = await fetch('booking_submit.php', { method: 'POST', body: new FormData(form) });
+        const raw = await res.text();
+
         let json;
-        try {
-          json = JSON.parse(raw);
-        } catch (e) {
+        try { json = JSON.parse(raw); }
+        catch (e) {
           console.error('booking_submit non-JSON:', raw.substring(0, 300));
-          showMsg('❌ Server error. Please try again.', false);
-          return;
+          showMsg('❌ Server error. Please try again.', false); return;
         }
 
         if (json.success) {
@@ -954,8 +854,7 @@ if (proofInput && proofInput.files[0]) {
             card.querySelector('input').checked  = false;
             document.getElementById('status' + cap(slot)).textContent = 'Select a date first';
           });
-          document.querySelectorAll('.avail-day.selected-day')
-            .forEach(c => c.classList.remove('selected-day'));
+          document.querySelectorAll('.avail-day.selected-day').forEach(c => c.classList.remove('selected-day'));
           loadCalendar(calYear, calMonth);
         } else {
           showMsg('❌ ' + (json.message || 'Something went wrong.'), false);
@@ -969,18 +868,16 @@ if (proofInput && proofInput.files[0]) {
       }
     });
 
-    // ── SCROLL EFFECT ─────────────────────────────────────────────────────────
+    // ── SCROLL EFFECT ──────────────────────────────────────────────────────────
     window.addEventListener('scroll', function () {
       const header = document.querySelector('.glass-header');
       if (header) header.classList.toggle('scrolled', window.scrollY > 50);
     });
 
-    // ── INIT ──────────────────────────────────────────────────────────────────
+    // ── INIT ───────────────────────────────────────────────────────────────────
     loadCalendar(calYear, calMonth);
 
   });
-
- 
   </script>
 
 </body>

@@ -1,59 +1,46 @@
 <!doctype html>
 <html lang="en">
   <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Cubiertos Food Hub</title>
+    <title>Cubiertos Food Hub</title>
 
-  <link rel="icon" type="image/jpg" href="/IMAGES/logo2.jpg">
+    <link rel="icon" type="image/jpg" href="/IMAGES/logo2.jpg" />
 
-  <link rel="stylesheet" href="../CSS/main.css" />
+    <link rel="stylesheet" href="../CSS/main.css" />
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Poppins:wght@400;600;700&display=swap" 
-    rel="stylesheet"
-  />
-</head>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Poppins:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
   <body>
     <!-- HEADER -->
-   <header class="glass-header">
-  <div class="nav-container">
+    <header class="glass-header">
+      <div class="nav-container">
+        <a href="../HTML/main.html" class="logo">
+          <img src="../IMAGES/logo2.jpg" alt="Cubiertos Logo" />
 
-    <a href="../HTML/main.html" class="logo">
-      <img src="../IMAGES/logo2.jpg" alt="Cubiertos Logo">
+          <div class="logo-text">
+            <h2>Cubiertos</h2>
+            <span>FOOD HUB</span>
+          </div>
+        </a>
 
-      <div class="logo-text">
-        <h2>Cubiertos</h2>
-        <span>FOOD HUB</span>
+        <nav class="navbar">
+          <a href="../HTML/main.html" class="active">Home</a>
+          <a href="../HTML/about.html">About</a>
+          <a href="../HTML/Store.html">Stores</a>
+          <a href="../HTML/contacts.html">Contacts</a>
+        </nav>
+
+        <a href="../HTML/login.html" class="login-btn"> Log in </a>
+
+        <div class="menu-toggle" id="menuToggle">☰</div>
       </div>
-    </a>
-
-    <nav class="navbar">
-      <a href="../HTML/main.html" class="active">Home</a>
-      <a href="../HTML/about.html">About</a>
-      <a href="../HTML/Store.html">Stores</a>
-      <a href="../HTML/contacts.html">Contacts</a>
-    </nav>
-
-    <a href="../HTML/login.html" class="login-btn">
-      Log in
-    </a>
-
-    <div class="menu-toggle" id="menuToggle">
-      ☰
-    </div>
-
-  </div>
-</header>
+    </header>
     <!-- floating buttons dun sa may check our -->
-    <div class="contact-box">
-      <p>CHECK OUR</p>
-      <div class="buttons">
-        <a href="#best-sellers" class="btn">🍽️<span>Best Seller</span></a>
-        <a href="#reviews" class="btn">★ ★ ★ <span>Reviews</span></a>
-      </div>
-    </div>
 
     <!-- dito yung socials -->
     <div class="socials">
@@ -92,36 +79,99 @@
     <!-- menu slide show dito  -->
     <section id="page2">
       <div class="w3-content w3-section">
+        <div class="mySlides">
+          <img src="../IMAGES/slide1.png" alt="Slide 1" />
+          <div class="menu-promo-overlay">
+            <span>LIMITED OFFER</span>
+            <h2>Get 15% OFF on your first booking</h2>
+            <p>Enjoy delicious meals and reserve your table online today.</p>
+            <a href="login.html" class="promo-btn">Claim Promo</a>
+          </div>
+        </div>
 
-<div class="mySlides">
-      <img src="../IMAGES/slide1.png" alt="Slide 1" />
-      <div class="menu-promo-overlay">
-        <span>LIMITED OFFER</span>
-        <h2>Get 15% OFF on your first booking</h2>
-        <p>Enjoy delicious meals and reserve your table online today.</p>
-        <a href="login.html" class="promo-btn">Claim Promo</a>
-      </div>
-    </div>
-    
-    <div class="mySlides" style="display:none;">
-      <img src="../IMAGES/slide2.png" alt="Slide 2" />
-      <div class="menu-promo-overlay">
-        <span>CHEF'S SPECIAL</span>
-        <h2>Try our new Creamy Pasta</h2>
-        <p>A rich and flavorful twist on a classic favorite.</p>
-        <a href="menu.html" class="promo-btn">See Menu</a>
-      </div>
-    </div>
-    
-    <div class="mySlides" style="display:none;">
-      <img src="../IMAGES/slide3.png" alt="Slide 3" />
-      <div class="menu-promo-overlay">
-        <span>MUST TRY</span>
-        <h2>The Ultimate Burger Combo</h2>
-        <p>Served with perfectly seasoned fries.</p>
-        <a href="menu.html" class="promo-btn">See Menu</a>
-      </div>
-    </div>
+        <div class="mySlides" style="display: none">
+          <img src="../IMAGES/slide2.png" alt="Slide 2" />
+          <div class="menu-promo-overlay">
+            <span>CHEF'S SPECIAL</span>
+            <h2>Try our new Creamy Pasta</h2>
+            <p>A rich and flavorful twist on a classic favorite.</p>
+            <a href="menu.html" class="promo-btn">See Menu</a>
+          </div>
+        </div>
+
+        <div class="mySlides" style="display: none">
+          <img src="../IMAGES/slide3.png" alt="Slide 3" />
+          <div class="menu-promo-overlay">
+            <span>MUST TRY</span>
+            <h2>The Ultimate Burger Combo</h2>
+            <p>Served with perfectly seasoned fries.</p>
+            <a href="menu.html" class="promo-btn">See Menu</a>
+          </div>
+        </div>
+        <!-- SLIDE 1: Pasta spread, sandwich wrap, green drink -->
+        <div class="mySlides">
+          <img src="../IMAGES/slide1.png" alt="Slide 1" />
+          <div class="menu-promo-overlay">
+            <h2>Pasta, Sandwich Wrap & Green Drink</h2>
+            <p>
+              A satisfying full meal — baked pasta, a fresh sandwich wrap,
+              toasted bread, and a cool refreshing green drink.
+            </p>
+            <a href="menu.html" class="promo-btn">See Menu</a>
+          </div>
+        </div>
+
+        <!-- SLIDE 2: Carbonara with egg, pesto penne, potato mojos -->
+        <div class="mySlides" style="display: none">
+          <img src="../IMAGES/slide2.png" alt="Slide 2" />
+          <div class="menu-promo-overlay">
+            <h2>Carbonara, Pesto Penne & Potato Mojos</h2>
+            <p>
+              Creamy carbonara topped with a sunny-side egg, herby pesto penne,
+              crispy potato mojos, and warm garlic bread.
+            </p>
+            <a href="menu.html" class="promo-btn">See Menu</a>
+          </div>
+        </div>
+
+        <!-- SLIDE 3: Baked pasta, creamy mushroom, strawberry iced drink -->
+        <div class="mySlides" style="display: none">
+          <img src="../IMAGES/slide3.png" alt="Slide 3" />
+          <div class="menu-promo-overlay">
+            <h2>Baked Pasta, Creamy Mushroom & Iced Drink</h2>
+            <p>
+              Rich baked pasta in tomato sauce, a creamy mushroom dish, toasted
+              bread, and a sweet strawberry iced drink.
+            </p>
+            <a href="menu.html" class="promo-btn">See Menu</a>
+          </div>
+        </div>
+
+        <!-- SLIDE 4: Egg-topped carbonara, wrap, sauce-drizzled toast -->
+        <div class="mySlides" style="display: none">
+          <img src="../IMAGES/slide4.png" alt="Slide 4" />
+          <div class="menu-promo-overlay">
+            <h2>Carbonara with Egg, Wrap & Toasted Bread</h2>
+            <p>
+              Silky carbonara topped with a sunny-side egg, a hearty wrap, and
+              toasted bread drizzled with creamy sauce.
+            </p>
+            <a href="menu.html" class="promo-btn">See Menu</a>
+          </div>
+        </div>
+
+        <!-- SLIDE 5: Crispy fries, fried chicken, onion rings, dip -->
+        <div class="mySlides" style="display: none">
+          <img src="../IMAGES/slide5.png" alt="Slide 5" />
+          <div class="menu-promo-overlay">
+            <h2>Crispy Fries, Fried Chicken & Onion Rings</h2>
+            <p>
+              Golden seasoned fries, crispy fried chicken, crunchy onion rings,
+              and a creamy dipping sauce on the side.
+            </p>
+            <a href="menu.html" class="promo-btn">See Menu</a>
+          </div>
+        </div>
 
         <div class="menu-prompt">
           <h2>Ready to taste the difference? Our menu is waiting.</h2>
@@ -137,8 +187,8 @@
 
       <div class="page3">
         <div class="card">
-          <img src="../IMAGES/mojos 1.png" alt="Pasta Duo Delight" />
-          <h3> Pasta Duo Delight with Crispy Chips</h3>
+          <img src="../IMAGES/classic carbonara.jpg" alt="Classic Carbonara" />
+          <h3>Classic Carbonara with Egg on the top</h3>
           <p>
             This meal includes a creamy pasta duo served with toasted bread: one
             plate features spaghetti topped with an egg in white sauce, while
@@ -150,7 +200,7 @@
 
         <div class="card">
           <img src="../IMAGES/Fries.jpg" alt="Burger and Fries" />
-          <h3> Lunch Meal Burger & Fries</h3>
+          <h3>Lunch Meal Burger & Fries</h3>
           <p>
             This meal features a hearty serving of baked pasta with rich tomato
             sauce and melted cheese, paired with toasted bread on the side.
@@ -160,7 +210,28 @@
         </div>
       </div>
     </section>
+    <!-- STATS SECTION -->
+    <section class="quick-stats">
+      <div class="quick-box">
+        <h2>1K+</h2>
+        <p>Happy Customers</p>
+      </div>
 
+      <div class="quick-box">
+        <h2>25+</h2>
+        <p>Food Choices</p>
+      </div>
+
+      <div class="quick-box">
+        <h2>4.9 ★</h2>
+        <p>Customer Rating</p>
+      </div>
+
+      <div class="quick-box">
+        <h2>Fast</h2>
+        <p>Booking Service</p>
+      </div>
+    </section>
     <!-- dito review section -->
     <section id="reviews" class="section best-sellers">
       <h2 class="section-title">REVIEWS</h2>
@@ -178,10 +249,10 @@
             </div>
             <div class="review-details">
               <p class="meal-name">
-                Breakfast Meal  Pasta with Egg, Garlic Bread & Wrap
+                Breakfast Meal Pasta with Egg, Garlic Bread & Wrap
               </p>
               <p class="reviewer-info">
-                <span class="rating">★ 4.8</span>  Reviewed by Anna M.
+                <span class="rating">★ 4.8</span> Reviewed by Anna M.
               </p>
               <p class="review-text">
                 "Their creamy pasta topped with a perfectly cooked sunny-side
@@ -206,7 +277,7 @@
               />
             </div>
             <div class="review-details">
-              <p class="meal-name"> Lunch Meal Burger & Fries</p>
+              <p class="meal-name">Lunch Meal Burger & Fries</p>
               <p class="reviewer-info">
                 <span class="rating">★ 4.7</span> Reviewed by Mark D.
               </p>
@@ -226,46 +297,20 @@
       </main>
     </section>
 
-<!-- STATS SECTION -->
-<section class="quick-stats">
-  <div class="quick-box">
-    <h2>1K+</h2>
-    <p>Happy Customers</p>
-  </div>
+    <!-- GALLERY -->
+    <section class="food-gallery">
+      <h2 class="section-title">FOOD GALLERY</h2>
+      <div class="title-bar"></div>
 
-  <div class="quick-box">
-    <h2>25+</h2>
-    <p>Food Choices</p>
-  </div>
-
-  <div class="quick-box">
-    <h2>4.9 ★</h2>
-    <p>Customer Rating</p>
-  </div>
-
-  <div class="quick-box">
-    <h2>Fast</h2>
-    <p>Booking Service</p>
-  </div>
-</section>
-
-<!-- GALLERY -->
-<section class="food-gallery">
-
-  <h2 class="section-title">FOOD GALLERY</h2>
-  <div class="title-bar"></div>
-
-  <div class="gallery-grid">
-
-    <img src="../IMAGES/mojos 1.png" alt="">
-    <img src="../IMAGES/Fries.jpg" alt="">
-    <img src="../IMAGES/slide1.png" alt="">
-    <img src="../IMAGES/slide2.png" alt="">
-    <img src="../IMAGES/slide3.png" alt="">
-    <img src="../IMAGES/slide4.png" alt="">
-
-  </div>
-</section>
+      <div class="gallery-grid">
+        <img src="../IMAGES/mojos 1.png" alt="" />
+        <img src="../IMAGES/Fries.jpg" alt="" />
+        <img src="../IMAGES/slide1.png" alt="" />
+        <img src="../IMAGES/slide2.png" alt="" />
+        <img src="../IMAGES/slide3.png" alt="" />
+        <img src="../IMAGES/slide4.png" alt="" />
+      </div>
+    </section>
 
     <!-- HERO CALL-TO-ACTION -->
     <section class="hero">
@@ -306,7 +351,7 @@
       </div>
       <div class="footer-bottom">
         <span>© 2025 Cubiertos.food.hub — All rights reserved.</span>
-        <div class="footer-socials">
+        <!-- <div class="footer-socials">
           <a
             href="https://www.facebook.com/profile.php?id=61555258696901"
             target="_blank"
@@ -326,7 +371,7 @@
             target="_blank"
             aria-label="Mail"
           >
-            <img src="../IMAGES/Mail.png" alt="Mail" />
+            <img src="../IMAGES/Mail.png" alt="Mail" /> -->
           </a>
         </div>
       </div>
@@ -351,12 +396,12 @@
       }
       showSlides();
 
-        const menuToggle = document.getElementById("menuToggle");
-  const navbar = document.querySelector(".navbar");
+      const menuToggle = document.getElementById("menuToggle");
+      const navbar = document.querySelector(".navbar");
 
-  menuToggle.addEventListener("click", () => {
-    navbar.classList.toggle("show");
-  });
+      menuToggle.addEventListener("click", () => {
+        navbar.classList.toggle("show");
+      });
     </script>
   </body>
 </html>

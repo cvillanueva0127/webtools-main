@@ -546,7 +546,7 @@ body{
 /* FOOTER */
 /* ========================================= */
 footer {
-  background: #1a1a14;
+ background: linear-gradient(90deg, #24380f 0%, #4f6420 100%);
   padding: 56px 80px 36px;
   color: rgba(255, 255, 255, 0.55);
   margin-top: 0;
